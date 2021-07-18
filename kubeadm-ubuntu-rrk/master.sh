@@ -1,7 +1,8 @@
 #! /bin/bash
 
+ipaddr=`ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
 
-kubeadm init --apiserver-advertise-address=172.105.38.6 --pod-network-cidr=192.168.0.0/16
+kubeadm init --apiserver-advertise-address=$ipaddr --pod-network-cidr=192.168.0.0/16
 
 sleep 5
 
@@ -24,11 +25,11 @@ kubectl apply -f calico.yaml
 
 # Install Metrics Server
 
-kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+#kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 
 # Install Kubernetes Dashboard
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+#kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 
 
