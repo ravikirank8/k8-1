@@ -43,26 +43,7 @@ sudo systemctl enable docker
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
-#==================================================================================================
-
-#============================================================================================================
-# Following configurations are recomended in the kubenetes documentation for Docker runtime. Please refer https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker
-#=============================================================
-
-
 echo "Docker Runtime Configured Successfully"
-
-
-#sudo apt-get update
-#sudo apt-get install -y apt-transport-https ca-certificates curl
-
-#sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-
-#sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-
-#sudo apt-get update -y
-#sudo apt-get install -y kubelet kubeadm kubectl
-#sudo apt-mark hold kubelet kubeadm kubectl
 
 
 sudo apt-get update -y 
@@ -80,12 +61,8 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 
 
-#mkdir -p $HOME/.kube
-#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#echo "Please run this kubeadm join token in workernode0,1,2,so on to join to master......................"
 
-echo "Please run this worker to join  nodes0,1,2,3..so on......................"
-
-kubeadm token create --print-join-command
+#kubeadm token create --print-join-command
 
 
