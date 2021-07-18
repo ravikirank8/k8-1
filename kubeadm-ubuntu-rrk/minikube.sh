@@ -1,7 +1,7 @@
 #Minikube installation with docker driver
 
 #sudo adduser kubeuser
-set -ex
+sudo useradd -s /bin/bash -d /home/kubeuser/ -m -G sudo kubeuser
 sudo apt-get update -y
 
  sudo apt-get install -y \
