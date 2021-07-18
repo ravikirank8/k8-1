@@ -1,7 +1,7 @@
 #Minikube installation with docker driver
 
 #sudo adduser kubeuser
-
+set -ex
 sudo apt-get update -y
 
  sudo apt-get install -y \
@@ -19,10 +19,10 @@ echo \
 
 sudo apt-get update -y
 
-sudo apt-get  install -y docker-ce docker-ce-cli containerd.io 
+sudo apt-get  install -y docker-ce docker-ce-cli containerd.io
 
 
-sudo mkdir /etc/docker
+sudo mkdir -p /etc/docker
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -40,13 +40,17 @@ sudo systemctl restart docker
 
 sudo usermod -aG docker $USER && newgrp docker
 
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+
 minikube start --driver=docker
 
 sleep 10
 
 minikube config set driver docker
 
-sudo apt-get update -y 
+sudo apt-get update -y
 
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -57,3 +61,4 @@ sudo apt-get update -y
 
 sudo apt-get install -y  kubectl
 
+kubectl get pods -n kube-system
