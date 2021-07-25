@@ -1,2 +1,5 @@
 kubectl create deploy webserver  --image=nginx   --dry-run=client -o yaml
 kubectl expose deployment webserver --port=8080 --target-port=8080 --type=Nodeport --dry-run=client -o yaml
+
+iptables -n -t nat -L KUBE-SERVICES
+
