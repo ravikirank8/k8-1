@@ -4,7 +4,6 @@ kubectl expose deployment webserver --port=8080 --target-port=8080 --type=Nodepo
 iptables -n -t nat -L KUBE-SERVICES
 
 kubectl expose deployment simple-webapp-deployment   --target-port=8080  --port=8080 --type=NodePort --dry-run=client -o yaml > b.yml
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,8 +11,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - targetPort: 8080
-      port: 8080
-      nodePort: 30080
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30080
   selector:
     name: simple-webapp
