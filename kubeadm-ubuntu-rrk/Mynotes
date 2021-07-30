@@ -14,3 +14,10 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
 
 
 
+ livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
