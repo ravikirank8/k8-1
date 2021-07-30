@@ -26,6 +26,17 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
  envFrom:
       - configMapRef:
           name: filename
+          
+          
+  
+ volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    configMap:
+      -key: mappedfile
+      name: myconfigmap
 
 
 https://medium.com/avmconsulting-blog/configmaps-in-kubernetes-k8s-2f2ce79d7e66
