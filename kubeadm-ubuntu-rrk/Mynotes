@@ -4,4 +4,13 @@ Mutli container:
 
 https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-12f5780f3956
 
+ readinessProbe:
+      exec:
+       command:
+          - cat
+          - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+
 
