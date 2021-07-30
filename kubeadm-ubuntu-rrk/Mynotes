@@ -21,3 +21,6 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
         - /tmp/healthy
       initialDelaySeconds: 5
       periodSeconds: 5
+
+
+https://medium.com/avmconsulting-blog/configmaps-in-kubernetes-k8s-2f2ce79d7e66
