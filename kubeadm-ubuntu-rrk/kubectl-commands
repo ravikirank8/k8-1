@@ -1,0 +1,197 @@
+Author : Ravi Ravada
+
+=============================================================================================================================================
+
+POD:
+
+kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  -- /bin/sh -c   'while true;do echo amobee;sleep  5;done' > pod1.yaml
+
+ kubectl logs  -f busybox -c busybox
+
+kubectl exec busybox -c busybox -- ls
+==================================================================
+Namespaces
+============
+
+kubectl create namespace mynamespace
+
+kubectl config view | grep namespaces
+
+ kubectl api-resources  --namespaced=false
+ 
+#TO SET CURRENT NAMESPACE
+kubectl config set-context --current --namespace=prod
+
+kubectl create namespace mynamespace
+
+kubectl run nginx --image=nginx --restart=Never -n mynamespace
+
+ kubectl run nginx2 --image=nginx --port=80  --dry-run=client -o yaml > namespae.yml
+
+kubectl get po --all-namespaces
+kubectl run nginx --image=nginx --restart=Never --port=80
+
+ ============================================================================================================
+ Lables and Selectors:
+ ======================
+ kubectl run fronend --image=nginx --restart=Never --labels=env=prod,team=amobee --dry-run=client -o yaml
+
+ kubectl run fronend --image=nginx --restart=Never --labels=env=dev,team=turn,app=2.0 --dry-run=client -o yaml
+
+  kubectl run fronend --image=nginx --restart=Never --labels=env=prod,team=noc
+ 
+  kubectl run fronend1 --image=nginx --restart=Never --labels=env=prod,team=techops,app=v2.0
+ 
+  kubectl run fronend3 --image=nginx --restart=Never --labels=env=prod,team=techops,app=amobee
+ 
+ kubectl run fronend4 --image=nginx --restart=Never --labels=env=prod,team=turn
+ 
+ kubectl get pods -l 'team in(noc,techops)'   --show-labels
+    
+  kubectl get po --show-labels  
+   
+  kubectl get pods -l 'team in(noc,techops)',env=prod  --show-labels
+  
+ Annotations
+ ============
+ 
+ kubectl annotate pod/fronend contact="noc"
+    
+
+=====================================================================================
+
+ 
+Deployment
+==============
+
+kubectl create deployment my-dep --image=nginx --replicas=3 --dry-run=client -o yaml
+ 
+kubectl scale deploy my-dep  --replicas=5
+
+kubectl get po
+
+kubectl describe deploy nginx
+
+kubectl create deploy nginx --image=nginx:1.18.0 --replicas=2 --port=80
+
+kubectl create deploy nginx --image=nginx:1.18.0 --replicas=2 --port=80 --dry-run=client  -o yaml > a.yml
+
+kubectl scale --replicas=7 rs nginx
+
+kubectl edit rs nginx
+
+kubectl get rc
+kubectl get deploy
+kubectl get deploy nginx -o yaml
+============================================================================================================
+Rollback:
+=========
+
+Kubernetes Rolling:
+Check how the deployment rollout is going
+kubectl rollout status deploy nginx
+
+kubectl set image deploy nginx nginx=nginx:1.19.8
+
+kubectl edit deploy nginx
+
+Check the rollout history and confirm that the replicas are OK
+
+kubectl rollout history deploy nginx
+kubectl rollout undo deploy nginx
+
+kubectl get deploy nginx
+kubectl get rs  # check that a new replica set has been created
+kubectl get po
+kubectl scale --replicas=7 rs nginx
+
+==============================================================================================================
+
+Scheduler
+=======
+ 
+kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod1.yaml
+
+Multicontainers
+
+// create the pod
+
+kubectl create -f simple-pod.yml// access logs
+
+kubectl logs busybox -c busybox1
+kubectl logs busybox -c busybox2
+kubectl logs busybox -c busybox3// exec into running containers
+
+
+Mutlicontainer in POD
+========================
+
+kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
+
+kubectl exec -it busybox -- /bin/bas
+
+images u can use for minimal container
+=========================================
+
+alpine
+busybox
+centos:latest 
+ubuntu:20.04
+
+kubectl exec -it busybox -c busybox1 /bin/sh
+kubectl exec -it busybox -c busybox2 /bin/sh
+kubectl exec -it busybox -c busybox3 /bin/sh
+
+
+
+ kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
+
+
+kubectl exec -it busybox -- /bin/bash
+
+
+================================================
+Environment:
+
+Of course, we have solved this problem. You can use environment variables and configuration files to store this information in a “central location” and reference 
+these from our app. When you want to change the configuration, simply change it in the file or change the environment variable, 
+and you are good to go! No need to hunt down every location where the data is referenced.
+
+
+
+ kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
+
+ kubectl exec busybox -- printenv
+
+ kubectl exec -it busybox -- env
+
+ kubectl exec -it busybox -- /bin/sh
+
+
+==========================================
+
+Config maps
+
+kubectl create cm mycm --from-file=a.txt
+kubectl get cm
+kubectl describe cm mycm
+
+kubectl create cm mycm --from-file=a.txt --dry-run=client -o yaml
+
+We see this using by creating it using test pod
+
+kubectl create cm variables --from-file=variables
+
+ kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yam
+
+kubectl exec -it busybox -- env
+
+kubectl get cm -o yaml
+
+    
+kubectl create secret generic sec --from-file=ssh-private=/root/.ssh/known_hosts --from-literal=passphrase=ravikiran
+
+ kubectl create secret generic db-user-pass  --from-file=a.txt  --from-file=pass.txt --dry-run=client -o yaml
+
+kubectl create secret generic sec --from-file=usercred=ravikiran --from-literal=passphrase=ravikiran300 --dry-run=client -o yaml
+
