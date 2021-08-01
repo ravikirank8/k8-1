@@ -37,6 +37,10 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
     configMap:
       -key: mappedfile
       name: myconfigmap
+      
+      
+      externalIPs:
+  - 192.168.0.10
 
 
 https://medium.com/avmconsulting-blog/configmaps-in-kubernetes-k8s-2f2ce79d7e66
