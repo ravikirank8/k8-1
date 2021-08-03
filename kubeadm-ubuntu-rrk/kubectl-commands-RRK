@@ -210,5 +210,17 @@ kubectl uncordon node01
 Run: kubectl get pods -o wide and you will see that there is a single pod scheduled on node01 which is not part of a replicaset.
 The drain command will not work in this case. To forcefully drain the node we now have to use the --force flag.
 
+We need to carry out a maintenance activity on node01 again. Try draining the node again using the same command as before: 
 
+A forceful drain of the node will delete any pod that is not part of a replicaset
+
+This means that both nodes have the ability to schedule workloads on them
+ kubectl describe nodes controlplane | grep -i taints 
+ 
+ To get latest version of k8 cluster
+ kubectl upgrade plan
+ 
+ We will be upgrading the master node first. Drain the master node of workloads and mark it UnSchedulable
+ There are daemonsets created in this cluster, especially in the kube-system namespace. To ignore these objects and drain the node, we can make use of the --ignore-daemonsets flag
+ kubectl drain controlplane --ignore-daemonsets
  
