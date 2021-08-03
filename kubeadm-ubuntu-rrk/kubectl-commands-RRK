@@ -195,3 +195,20 @@ kubectl create secret generic sec --from-file=ssh-private=/root/.ssh/known_hosts
 
 kubectl create secret generic sec --from-file=usercred=ravikiran --from-literal=passphrase=ravikiran300 --dry-run=client -o yaml
 
+=====================================================================================================================================
+
+
+Node node01 Unschedulable
+Pods evicted from node01 
+
+#We need to take node01 out for maintenance. Empty the node of all applications and mark it unschedulable
+kubectl drain node01 --ignore-daemonsets
+
+Node01 is Schedulable
+kubectl uncordon node01
+
+Run: kubectl get pods -o wide and you will see that there is a single pod scheduled on node01 which is not part of a replicaset.
+The drain command will not work in this case. To forcefully drain the node we now have to use the --force flag.
+
+
+ 
