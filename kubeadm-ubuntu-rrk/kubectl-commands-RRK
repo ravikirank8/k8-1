@@ -227,5 +227,22 @@ This means that both nodes have the ability to schedule workloads on them
  
  In order to ensure minimum downtime, upgrade the cluster one node at a time, while moving the workloads to another node. In the upcoming tasks you will get to practice how to do that
  
+ On the controlplane node, run the command run the following commands:
+
+    apt update
+    This will update the package lists from the software repository.
+
+    apt install kubeadm=1.20.0-00
+    This will install the kubeadm version 1.20
+
+    kubeadm upgrade apply v1.20.0
+    This will upgrade kubernetes controlplane. Note that this can take a few minutes.
+
+    apt install kubelet=1.20.0-00 This will update the kubelet with the version 1.20.
+
+    You may need to restart kubelet after it has been upgraded.
+    Run: systemctl restart kubelet
+
+ 
  
  
