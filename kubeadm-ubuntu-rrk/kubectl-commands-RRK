@@ -256,6 +256,14 @@ Upgrade kubeadm tool (if not already), then the master components, and finally t
 make it schudable again
 kubectl uncordon controlplane
 
+====================================
+kubectl get po -n kube-system
+
+Look at the ETCD Logs using the command kubectl logs etcd-controlplane -n kube-system or check the image used by the ETCD pod: 
+
+kubectl describe pod etcd-controlplane -n kube-system
+
+
  
  
  
