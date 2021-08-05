@@ -1,4 +1,28 @@
+What is the network interface configured for cluster connectivity on the master node?
 
+Run: kubectl get nodes -o wide to see the IP address assigned to the controlplane node.
+
+root@controlplane:~# kubectl get nodes controlplane -o wide
+NAME           STATUS   ROLES                  AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION   CONTAINER-RUNTIME
+controlplane   Ready    control-plane,master   4h46m   v1.20.0   10.3.116.12   <none>        Ubuntu 18.04.5 LTS   5.4.0-1041-gcp   docker://19.3.0
+root@controlplane:~#
+
+In this case, the internal IP address used for node for node to node communication is 10.3.116.12.
+
+Important Note : The result above is just an example, the node IP address will vary for each lab.
+
+Next, find the network interface to which this IP is assigned by making use of the ip a command:
+
+root@controlplane:~# ip a | grep -B2 10.3.116.12
+16476: eth0@if16477: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default 
+    link/ether 02:42:0a:03:74:0c brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.3.116.12/24 brd 10.3.116.255 scope global eth0
+root@controlplane:~# 
+
+Here you can see that the interface associated with this IP is eth0 on the host
+ 
+ 
+ 
  Switching, Routing and Gateways
 
 To see the interface on the host system
