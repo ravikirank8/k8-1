@@ -20,6 +20,13 @@ root@controlplane:~# ip a | grep -B2 10.3.116.12
 root@controlplane:~# 
 
 Here you can see that the interface associated with this IP is eth0 on the host
+
+==
+What is the MAC address of the interface on the master node?
+ip link show eth0
+
+==
+What is the MAC address assigned to node01?
  
  
  
@@ -37,6 +44,51 @@ ip addr add 192.168.1.11/24 dev eth0
 
 To add entries into the routing table.
 ip route add 192.168.1.0/24 via 192.168.2.1
+
+
+ip link show docker0
+
+If you were to ping google from the master node, which route does it take?
+
+What is the IP address of the Default Gateway?
+
+
+Run the command: ip route show default and look at for default gateway.
+
+===
+
+What is the port the kube-scheduler is listening on in the controlplane node?
+netstat -nplt | grep scheduler
+
+
+Notice that ETCD is listening on two ports. Which of these have more client connections established?
+
+netstat -anp | grep etcd | grep 2380 | wc -l 
+1
+root@controlplane:~# 
+root@controlplane:~# 
+root@controlplane:~# netstat -anp | grep etcd | grep 2379 | wc -l 
+81
+
+
+
+network pulgin connected
+
+root@controlplane:~# ps -aux | grep kubelet | grep --color network-plugin=   
+root      4573  0.0  0.5 2228660 104628 ?      Ssl  13:55   2:50 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --network-plugin=cni --pod-infra-container-image=k8s.gcr.io/pause:3.2
+root@controlplane:~# 
+
+
+Note the --color will highlight the pattern being searched and is quite useful when the line has plenty of characters.
+
+
+====================================================================================='
+=========================================================================================
+
+
+
+
+
 
 =======================================
 
