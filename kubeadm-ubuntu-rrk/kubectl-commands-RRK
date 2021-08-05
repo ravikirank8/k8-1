@@ -332,8 +332,58 @@ When this file is updated, the ETCD pod is automatically re-created as this is a
 
 If you do change --data-dir to /var/lib/etcd-from-backup in the YAML file, make sure that the volumeMounts for etcd-data is updated as well, with the mountPath pointing to /var/lib/etcd-from-backup (THIS COMPLETE STEP IS OPTIONAL AND NEED NOT BE DONE FOR COMPLETING THE RESTORE)
 
+===========================
 
+Taints and Tolerations
+=======================
 
+Create a taint on node01 with key of spray, value of mortein and effect of NoSchedule
+
+    Key = spray
+    Value = mortein 
+
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+kubectl describe node01 | grep -i taints
+
+=======
+
+Create another pod named bee with the NGINX image, which has a toleration set to the taint mortein.
+
+    Image name: nginx
+    Key: spray
+    Value: mortein
+    Effect: NoSchedule
+    Status: Running
+    
+    ===
+    
+    Create another pod named bee with the NGINX image, which has a toleration set to the taint mortein.
+
+    Image name: nginx
+    Key: spray 
+    
+    apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: bee
+  name: bee
+spec:
+  containers:
+  - image: nginx
+    name: bee
+  tolerations:
+  - key: spray
+    value: mortein
+    effect: NoSchedule
+    operator: Equal
+    
+    remove taint:
+    check where is taint in mastet or node
+    
+    kubectl taint nodes controlplane node-role.kubernetes.io/master:NoSchedule-
+    
 
 
 
