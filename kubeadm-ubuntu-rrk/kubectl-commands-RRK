@@ -482,6 +482,20 @@ spec:
             - matchExpressions:
               - key: node-role.kubernetes.io/master
                 operator: Exists
+                
+                
+                
+ =========================================================================================================================================
+ ==========================================================================================================================================
+ 
+ Volumes
+ ======
+ volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
 
     
 
