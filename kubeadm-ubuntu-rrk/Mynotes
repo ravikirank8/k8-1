@@ -34,6 +34,8 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
       mountPath: "/etc/foo"
   volumes:
   - name: foo
+  
+  https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
     configMap:
       -key: mappedfile
       name: myconfigmap
