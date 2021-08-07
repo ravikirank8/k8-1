@@ -44,3 +44,44 @@ https://medium.com/bb-tutorials-and-thoughts/understanding-multi-container-pods-
 
 
 https://medium.com/avmconsulting-blog/configmaps-in-kubernetes-k8s-2f2ce79d7e66
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: busybox
+  name: busybox
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - echo hello world;sleep 3600
+    image: busybox
+    name: busybox
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
+  - args:
+    - /bin/sh
+    - -c
+    - echo hello world;sleep 3600
+    image: centos:7
+    name: centos
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis2
+  - args:
+    - /bin/sh
+    - -c
+    - echo hello world;sleep 3600
+    image: ubuntu:20.04
+    name: ubuntu
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis3
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
+
