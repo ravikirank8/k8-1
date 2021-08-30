@@ -182,7 +182,7 @@ We see this using by creating it using test pod
 
 kubectl create cm variables --from-file=variables
 
- kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yam
+ kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
 
 kubectl exec -it busybox -- env
 
