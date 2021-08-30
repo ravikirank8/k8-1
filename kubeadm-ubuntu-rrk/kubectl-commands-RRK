@@ -496,6 +496,20 @@ spec:
   volumes:
   - name: redis-storage
     emptyDir: {}
+    
+    
+ image: busybox
+    name: busybox
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data
+      # this field is optional
+      type: DirectoryOrCreate
 
     
 
