@@ -43,3 +43,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 #echo "Please run this kubeadm join token in workernode0,1,2,so on to join to master......................"
 
 #kubeadm token create --print-join-command
+
+
+#number of cores your cpu is using (k8 require 2 cores for master to run otherwise installation fails)
+#cat /proc/cpuinfo | grep "physical id" | sort -u | wc -l
