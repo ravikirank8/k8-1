@@ -9,6 +9,8 @@ kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  --
  kubectl logs  -f busybox -c busybox
 
 kubectl exec busybox -c busybox -- ls
+
+ kubectl run rvada --image=vadisala/rvadisala_docker_repo:nginx-custom
 ==================================================================
 Namespaces
 ============
