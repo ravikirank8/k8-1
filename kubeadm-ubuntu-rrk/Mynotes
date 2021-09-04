@@ -92,17 +92,14 @@ spec:
     configmap:
     ==========
     
-    volumeMounts:
+  volumeMounts:
       - name: config-volume
         mountPath: /etc/config
   volumes:
     - name: config-volume
       configMap:
-        # Provide the name of the ConfigMap containing the files you want
-        # to add to the container
         name: special-config
         items:
         - key: SPECIAL_LEVEL
           path: keys
   restartPolicy: Never
-
