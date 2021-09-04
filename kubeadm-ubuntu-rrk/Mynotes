@@ -87,7 +87,7 @@ spec:
   - name: redis-storage
     emptyDir: {}
     
-    
+  ===============================================================================
     
     configmap:
     ==========
@@ -103,3 +103,34 @@ spec:
         - key: SPECIAL_LEVEL
           path: keys
   restartPolicy: Never
+  
+  
+  
+  example :
+  apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: busybox
+  name: busybox
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - while true;do echo amobee;sleep  5;done
+    image: nginx
+    name: busybox
+    volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: nginx1
+        items:
+        - key: nginx.conf
+          path: default.conf
+  restartPolicy: Never
+  
+==============================================================
