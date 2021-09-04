@@ -133,4 +133,30 @@ spec:
           path: default.conf
   restartPolicy: Never
   
+  Reference : https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
 ==============================================================
+
+secert:
+=======
+
+ kubectl create secret generic mysecret --from-file=ssh-privatekey=/root/.ssh/id_rsa --from-literal=passphrase=password
+ 
+  echo  'cmF2aQ==' | base64 -d
+  echo -n 'ravi' | base64
+  
+  kubectl create secret generic mysecret --from-literal=username=ravikiran --from-literal=passphrase=password --dry-run=client -o yaml > sec.yaml
+  
+  
+  volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+
+ 
+
+
+
