@@ -8,6 +8,21 @@ This is used for testing. Before the POD availabe readinees probe will check whe
 
 Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
 
+image path 
+
+ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
 
 
 
