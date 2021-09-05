@@ -1,12 +1,10 @@
 Author : Ravi Ravada
-
 =============================================================================================================================================
-
 POD:
 
 kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  -- /bin/sh -c   'while true;do echo amobee;sleep  5;done' > pod1.yaml
 
- kubectl logs  -f busybox -c busybox
+kubectl logs  -f busybox -c busybox
 
 kubectl exec busybox -c busybox -- ls
 ==================================================================
@@ -51,8 +49,29 @@ kubectl run fronend3 --image=nginx --restart=Never --labels=env=prod,team=cms
 kubectl get pods -l 'team in(noc,techops)'  --show-labels
 
  kubectl get pods -l env=prod
+=================================================================================
+
+annnotation:
+============
 
 kubectl annotate pod/fronend contact="noc"
+=====================
+
+Environment:
+============
+
+
+Of course, we have solved this problem. You can use environment variables and configuration files to store this information in a “central location” and reference 
+these from our app. When you want to change the configuration, simply change it in the file or change the environment variable, 
+and you are good to go! No need to hunt down every location where the data is referenced.
+
+ kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
+
+ kubectl exec busybox -- printenv
+
+ kubectl exec -it busybox -- env
+
+ kubectl exec -it busybox -- /bin/sh
 
 
 
@@ -80,29 +99,7 @@ kubectl annotate pod/fronend contact="noc"
    
   kubectl get pods -l 'team in(noc,techops)',env=prod  --show-labels
   
-  Environment:
-
-Of course, we have solved this problem. You can use environment variables and configuration files to store this information in a “central location” and reference 
-these from our app. When you want to change the configuration, simply change it in the file or change the environment variable, 
-and you are good to go! No need to hunt down every location where the data is referenced.
-
-
-
- kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
-
- kubectl exec busybox -- printenv
-
- kubectl exec -it busybox -- env
-
- kubectl exec -it busybox -- /bin/sh
   
- Annotations
- ============
- 
- kubectl annotate pod/fronend contact="noc"
-    
-
-=====================================================================================
 
  
 Deployment
