@@ -135,6 +135,9 @@ kubectl get deploy nginx -o yaml
 kubectl autoscale rs web --max=5
 kubectl autoscale deploy nginx  --max=10 --min=3 --cpu-percent=50
 
+kubectl taint nodes  mildevkub020 node-role.kubernetes.io/master-
+
+https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
 ============================================================================================================
 Rollback:
 =========
