@@ -109,6 +109,9 @@ and you are good to go! No need to hunt down every location where the data is re
 Deployment
 ==============
 
+ kubectl create deploy httpd1 --image=vadisala/rvadisala_docker_repo:nginx-custom --replicas=2 --dry-run=client -o yaml
+
+
 kubectl create deployment my-dep --image=nginx --replicas=3 --dry-run=client -o yaml
  
 kubectl scale deploy my-dep  --replicas=5
