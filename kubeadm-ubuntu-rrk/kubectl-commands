@@ -2,7 +2,11 @@ Author : Ravi Ravada
 =============================================================================================================================================
 POD:
 
+kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod1.yaml
+
 kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  -- /bin/sh -c   'while true;do echo amobee;sleep  5;done' > pod1.yaml
+
+
 
 kubectl logs  -f busybox -c busybox
 
