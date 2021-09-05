@@ -12,8 +12,11 @@ kubectl exec busybox -c busybox -- ls
 ==================================================================
 Namespaces
 ============
+kubectl get pods --namespace=kube-system
 
 kubectl create namespace mynamespace
+
+kubectl create -f pod-definition.yaml --namespace=dev
 
 kubectl config view | grep namespaces
 
