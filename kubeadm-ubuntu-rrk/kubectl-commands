@@ -18,6 +18,8 @@ kubectl create namespace mynamespace
 
 kubectl create -f pod-definition.yaml --namespace=dev
 
+kubectl get pods --namespace=dev
+
 kubectl config view | grep namespaces
 
  kubectl api-resources  --namespaced=false
