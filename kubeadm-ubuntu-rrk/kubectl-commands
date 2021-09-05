@@ -39,6 +39,29 @@ kubectl run nginx --image=nginx --restart=Never --port=80
  ============================================================================================================
  Lables and Selectors:
  ======================
+ 
+kubectl get pods --show-labels | grep -i prod
+ 
+kubectl run fronend1 --image=nginx --restart=Never --labels=env=prod,team=techops
+ 
+kubectl run fronend3 --image=nginx --restart=Never --labels=env=prod,team=noc
+  
+kubectl run fronend3 --image=nginx --restart=Never --labels=env=prod,team=cms
+  
+kubectl get pods -l 'team in(noc,techops)'  --show-labels
+
+ kubectl get pods -l env=prod
+
+kubectl annotate pod/fronend contact="noc"
+
+
+
+
+ 
+ 
+ =============================================================================================
+ 
+ 
  kubectl run fronend --image=nginx --restart=Never --labels=env=prod,team=amobee --dry-run=client -o yaml
 
  kubectl run fronend --image=nginx --restart=Never --labels=env=dev,team=turn,app=2.0 --dry-run=client -o yaml
