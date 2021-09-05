@@ -131,6 +131,10 @@ kubectl edit rs nginx
 kubectl get rc
 kubectl get deploy
 kubectl get deploy nginx -o yaml
+
+kubectl autoscale rs web --max=5
+kubectl autoscale deploy nginx  --max=10 --min=3 --cpu-percent=50
+
 ============================================================================================================
 Rollback:
 =========
