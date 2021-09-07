@@ -57,7 +57,7 @@ kubectl apply -f calico.yaml
 #(Optional) Run kubeadm config images pull prior to kubeadm init to verify connectivity to the gcr.io container image registry.
 
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#mkdir -p $HOME/.kube
+#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
