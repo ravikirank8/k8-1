@@ -1,6 +1,17 @@
 #!/bin/sh
 
 
+#Notes:
+
+ #   Setting SELinux in permissive mode by running setenforce 0 and sed ... effectively disables it. This is required to allow containers to access the host filesystem, which is needed by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
+
+#    You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+
+
+
+# Set SELinux in permissive mode (effectively disabling it)
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 #Letting iptables see bridged traffic
 
 #Make sure that the br_netfilter module is loaded. This can be done by running lsmod | grep br_netfilter
@@ -76,18 +87,7 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 
-#Notes:
-
- #   Setting SELinux in permissive mode by running setenforce 0 and sed ... effectively disables it. This is required to allow containers to access the host filesystem, which is needed by pod networks for example. You have to do this until SELinux support is improved in the kubelet.
-
-#    You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
-
-
-
-# Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-s
+
