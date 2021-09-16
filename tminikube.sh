@@ -1,10 +1,6 @@
 #Minikube installation with docker driver
 
 #sudo adduser kubeuser
-sudo useradd -s /bin/bash -d /home/kubeuser/ -m -G sudo kubeuser
-
-passwd kubeuser
-
 
 
 sudo apt-get update -y
@@ -48,7 +44,6 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 sudo usermod -aG docker $USER && newgrp docker
 
-exit
 
 minikube start --driver=docker
 
