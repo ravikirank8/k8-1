@@ -1,0 +1,71 @@
+
+$ ssh -L localhost:8001:127.0.0.1:8001 root@192.46.210.89
+root@192.46.210.89's password:
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-151-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Sep 18 09:03:28 UTC 2021
+
+  System load:  0.76              Users logged in:        0
+  Usage of /:   5.0% of 78.19GB   IP address for eth0:    192.46.210.89
+  Memory usage: 25%               IP address for docker0: 172.17.0.1
+  Swap usage:   0%                IP address for tunl0:   192.168.20.0
+  Processes:    166
+
+
+43 updates can be applied immediately.
+27 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+New release '20.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Sep 18 08:57:31 2021 from 27.59.243.31
+root@localhost:~# kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+namespace/kubernetes-dashboard created
+serviceaccount/kubernetes-dashboard created
+service/kubernetes-dashboard created
+secret/kubernetes-dashboard-certs created
+secret/kubernetes-dashboard-csrf created
+secret/kubernetes-dashboard-key-holder created
+configmap/kubernetes-dashboard-settings created
+role.rbac.authorization.k8s.io/kubernetes-dashboard created
+clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard created
+rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
+deployment.apps/kubernetes-dashboard created
+service/dashboard-metrics-scraper created
+Warning: spec.template.metadata.annotations[seccomp.security.alpha.kubernetes.io/pod]: deprecated since v1.19; use the "seccompProfile" field instead
+deployment.apps/dashboard-metrics-scraper created
+root@localhost:~# kubectl get pods -A -w
+NAMESPACE              NAME                                         READY   STATUS              RESTARTS   AGE
+kube-system            calico-kube-controllers-74b8fbdb46-7x6hz     1/1     Running             0          4m12s
+kube-system            calico-node-m8qvh                            1/1     Running             0          4m12s
+kube-system            coredns-78fcd69978-9pfgw                     1/1     Running             0          4m12s
+kube-system            coredns-78fcd69978-c9kcc                     1/1     Running             0          4m11s
+kube-system            etcd-localhost                               1/1     Running             0          4m25s
+kube-system            kube-apiserver-localhost                     1/1     Running             0          4m26s
+kube-system            kube-controller-manager-localhost            1/1     Running             0          4m25s
+kube-system            kube-proxy-vqjzd                             1/1     Running             0          4m12s
+kube-system            kube-scheduler-localhost                     1/1     Running             0          4m25s
+kubernetes-dashboard   dashboard-metrics-scraper-5594697f48-qxwgf   0/1     ContainerCreating   0          9s
+kubernetes-dashboard   kubernetes-dashboard-57c9bfc8c8-lgn86        0/1     ContainerCreating   0          9s
+kubernetes-dashboard   kubernetes-dashboard-57c9bfc8c8-lgn86        1/1     Running             0          11s
+kubernetes-dashboard   dashboard-metrics-scraper-5594697f48-qxwgf   1/1     Running             0          17s
+^Croot@localhost:~# mkdir ~/dashboard && cd ~/dashboard
+root@localhost:~/dashboard# vi  dashboard-admin.yaml
+root@localhost:~/dashboard# kubectl create -f dashboard-admin.yaml
+serviceaccount/admin-user created
+clusterrolebinding.rbac.authorization.k8s.io/admin-user created
+root@localhost:~/dashboard# kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImxibENZWUsySGtWVXNGM2tiZW43RldVSFFrTlFsU1ZsQ0F6ajlEU2UtVFUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLWh3OHZqIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIyZTYwMjA1MC02OTJiLTQ3MTktOWIzZS05MWM1Y2RmZjkwYmQiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.My2p5NgaeoSHC6amZzOCzn1biPh0vyhzVrdoUOWYQhwnBerhsJvrZw7MbZvVGSyvP0UhopV8fxXbadeEQI9847BkWpbcr7jjlkzHcbrNrZPRYL6El_JTPhLxt7pjT8v2aLvFnIXH2BfbatLeLBemzAaqdI_dVF_fEA_8KSpcWCWu2dotec_bgvDmPujvHZxTXDC2VuLHLrHJKGq97_1CFWnM5E7jQHeqwfKoqOVazl5LQdpytk0o_6A_TOzn9ZH4Dy3bSj3IjFll-UpClsqI_htG8Z3bmfWi09jBbh6iL_R9fhgioFO5o-jr0CkmoF64hIQwBCOqgZv5hmjt8cMpGAroot@localhost:~/dashboard# vi dashboard-read-only.yaml
+root@localhost:~/dashboard# kubectl create -f dashboard-read-only.yaml
+serviceaccount/read-only-user created
+clusterrole.rbac.authorization.k8s.io/read-only-clusterrole created
+clusterrolebinding.rbac.authorization.k8s.io/read-only-binding created
+root@localhost:~/dashboard# kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount read-only-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImxibENZWUsySGtWVXNGM2tiZW43RldVSFFrTlFsU1ZsQ0F6ajlEU2UtVFUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJyZWFkLW9ubHktdXNlci10b2tlbi1tOHJxbCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJyZWFkLW9ubHktdXNlciIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImZiNjg4NzJkLTA3NjEtNGMzNy05MmI0LTVhMDk5OTVjYTk5ZiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlcm5ldGVzLWRhc2hib2FyZDpyZWFkLW9ubHktdXNlciJ9.sJWlHuoHwCFTrajUZwQkYEsSRLMmZjIS0VNl0w-6pTpRYlXwlaBa5fq-0StYWWAg-bDzYtfnoiyZ9BCumy4_piqmmW7dB6-f3C6j0uCJepMeiZ8PPnLgtkqtfMLt1D3xrvtFgCJqEWHqAVfKJY2c943WlzD9E5MSMmBVakpp9GM8ZkG94ppAdhSWqBwF-W04osx-kD2Zt-UczfJ2rw0NiWH93v9fdmpfF2HonqL0ul-b_gstOuqlUEPksMlz_qR2K8z442d6Kj2QzSUwSxb5EsHRc7esjAHs9CXtk2lHy9PWNpF74qk9Xcfh4BZTh4_jc-yYdfjLM_QVrnUU0STBZgroot@localhost:~/dashboard# kubectl proxy
