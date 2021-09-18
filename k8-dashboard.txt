@@ -1,4 +1,7 @@
+#https://stackoverflow.com/questions/15198834/bind-failed-address-already-in-use
 #https://upcloud.com/community/tutorials/deploy-kubernetes-dashboard/
+
+
 $ ssh -L localhost:8001:127.0.0.1:8001 root@192.46.210.89
 root@192.46.210.89's password:
 Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-151-generic x86_64)
