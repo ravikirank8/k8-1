@@ -1,6 +1,8 @@
 #ocatant dashboard
 #https://www.techcrumble.net/2020/05/how-to-run-vmware-project-octant-as-a-service-for-remote-access/
 #https://tech.davidfield.co.uk/two-guis-for-viewing-your-kubernetes-environment/
+#ps aux | grep kubectl
+#kill -9 proxy
 
 mkdir -p /usr/lib/systemd/system 
 
