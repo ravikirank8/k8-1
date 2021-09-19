@@ -515,9 +515,38 @@ spec:
       
       
      =============================================
+ 
+#https://betterprogramming.pub/tutorial-how-to-use-kubernetes-job-and-cronjob-1ef4ffbc8e84
+
+look into this article about jobs and cron jobs
      
      Job:
      kubectl create job1 rav --image=busybox -o yaml  --dry-run=client   -- /bin/sh -c 'date; echo sleeping....; sleep 90s; echo exiting...'
+
+
+Enforcing a time limit
+For e.g., you are running a batch job and it takes too long to finish due to some reason. This might be undesirable. 
+You can limit the time for which a Job can continue to run by setting the activeDeadlineSeconds attribute in the spec.
+
+spec:
+  activeDeadlineSeconds: 5
+  template:
+
+=====
+
+Handling failures
+
+What if there are issues due to container failure (process exited) or Pod failure? Let's try this out by simulating a failure.
+
+In this Job, the container prints the date, sleeps for 5 seconds, and exits with a status 1 to simulate failure.
+
+here set sleep 5
+
+spec:
+  backoffLimit: 2
+  template:
+
+==================
 
      
      
