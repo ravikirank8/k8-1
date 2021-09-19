@@ -516,6 +516,9 @@ spec:
       
      =============================================
      
+     Job:
+     kubectl create job1 rav --image=busybox -o yaml  --dry-run=client   -- /bin/sh -c 'date; echo sleeping....; sleep 90s; echo exiting...'
+
      
      
 
