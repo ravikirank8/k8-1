@@ -548,6 +548,13 @@ spec:
 
 ==================
 
+cronjob
+========
+
+kubectl create cronjob busybox --image=busybox --schedule="*/1 * * * *"   -o yaml --dry-run=client -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+
+
+
      
      
 
