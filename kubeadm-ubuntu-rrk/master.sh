@@ -26,7 +26,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 # Install Metrics Server
 
-#kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+kubectl apply -f https://raw.githubusercontent.com/scriptcamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 
 # Install Kubernetes Dashboard
 
