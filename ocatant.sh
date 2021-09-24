@@ -7,6 +7,11 @@
 
 wget -c https://github.com/vmware-tanzu/octant/releases/download/v0.24.0/octant_0.24.0_Linux-64bit.tar.gz
 
+tar -xvf octant_0.24.0_Linux-64bit.tar.gz
+
+cd octant_0.24.0_Linux-64bit 
+
+mv octant /usr/local/bin
 
 mkdir -p /usr/lib/systemd/system 
 
