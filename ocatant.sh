@@ -5,9 +5,12 @@
 #kill -9 proxy
 
 
-#binary https://github.com/vmware-tanzu/octant/releases/download/v0.24.0/octant_0.24.0_Linux-64bit.tar.gz
+wget -c https://github.com/vmware-tanzu/octant/releases/download/v0.24.0/octant_0.24.0_Linux-64bit.tar.gz
+
 
 mkdir -p /usr/lib/systemd/system 
+
+cd /usr/lib/systemd/system 
 
 cat <<EOF | sudo tee octant.service
 [Unit]
