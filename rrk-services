@@ -1,1 +1,21 @@
  kubectl create ingress example-ingress --rule="hello-world.info/=web:8080"  --dry-run=client -o yaml
+ 
+ ingress
+ ====
+ ingress-nginx
+ k8-ingress
+ haxproxy
+ =====
+ ingress is different from cloud to cloud based on env.
+ 
+ why ingress?
+ common ip and get into different domains and ip runs to different ports
+ example.com
+ example.com/dev
+ example.com/prod
+ traffic-> we need ingress controller - > services
+ 
+ In cloud LB -> LB service 
+ 
+ 
+ 
