@@ -1,3 +1,5 @@
+wget -c https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz
+
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
