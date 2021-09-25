@@ -14,6 +14,8 @@ kubectl -n kubernetes-dashboard get svc
 
 kubectl -n default edit  svc ingress-nginx-controller
 
+kubectl --namespace default get services -o wide -w ingress-nginx-controller
+
 type: LoadBalancer
 externalIPs:
     - 80.11.12.10(masterip of node)
