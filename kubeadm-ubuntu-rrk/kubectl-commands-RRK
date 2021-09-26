@@ -554,6 +554,15 @@ cronjob
 kubectl create cronjob busybox --image=busybox --schedule="*/1 * * * *"   -o yaml --dry-run=client -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
 
 
+serives
+======
+LoadBalacer
+#https://github.com/dennyzhang/cheatsheet-kubernetes-A4
+
+kubectl expose deployment/my-demo-website --type=LoadBalancer --dry-run=client -o yaml > svc.yaml
+
+
+
 
      
      
