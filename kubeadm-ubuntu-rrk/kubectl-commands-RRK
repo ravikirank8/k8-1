@@ -580,6 +580,7 @@ This IP is stable and never changes in the service lifecycle(unless deleted expl
 
 2 different pods can communicate using this IP, though I recommend using cluster DNS service
 
+kubectl expose deployment/mydemo --dry-run=client -o yaml
 
 
      
