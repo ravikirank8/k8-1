@@ -582,6 +582,13 @@ This IP is stable and never changes in the service lifecycle(unless deleted expl
 
 kubectl expose deployment/mydemo --dry-run=client -o yaml
 
+=========
+
+autoscale
+=========
+
+kubectl autoscale deploy/mydemo --min=5 --max=10 --cpu-percent=80 --dry-run=client -o yaml
+
 
      
      
