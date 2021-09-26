@@ -560,6 +560,13 @@ LoadBalacer
 #https://github.com/dennyzhang/cheatsheet-kubernetes-A4
 
 kubectl expose deployment/my-demo-website --type=LoadBalancer --dry-run=client -o yaml > svc.yaml
+kubectl expose deployment/mydemo --type=LoadBalancer --dry-run=client -o yaml > svc.yaml
+
+NodePort:
+========
+
+ClusterIP:
+========
 
 
 
