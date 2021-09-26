@@ -556,6 +556,7 @@ kubectl create cronjob busybox --image=busybox --schedule="*/1 * * * *"   -o yam
 
 serives
 ======
+#https://github.com/kodekloudhub/certified-kubernetes-administrator-course/blob/master/docs/02-Core-Concepts/19-Services.md
 LoadBalacer
 #https://github.com/dennyzhang/cheatsheet-kubernetes-A4
 
@@ -564,6 +565,7 @@ kubectl expose deployment/mydemo --type=LoadBalancer --dry-run=client -o yaml > 
 
 NodePort:
 ========
+ kubectl expose deployment/mydemo --type=NodePort --dry-run=client -o yaml  >
 
 ClusterIP:
 ========
