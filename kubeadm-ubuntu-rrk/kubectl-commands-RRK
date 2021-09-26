@@ -572,6 +572,13 @@ ClusterIP:
 
 https://matthewpalmer.net/kubernetes-app-developer/articles/service-kubernetes-example-tutorial.html
 
+Cluster IP is a virtual IP that is allocated by the K8s to a service. It is K8s internal IP.
+
+A Cluster IP makes it accessible from any of the Kubernetes cluster’s nodes. The use of virtual IP addresses for this purpose makes it possible to have several pods expose the same port on the same node – All of these pods will be accessible via a unique IP address.
+
+This IP is stable and never changes in the service lifecycle(unless deleted explicitly).
+
+2 different pods can communicate using this IP, though I recommend using cluster DNS service
 
 
 
