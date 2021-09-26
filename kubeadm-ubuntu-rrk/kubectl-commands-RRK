@@ -589,6 +589,9 @@ autoscale
 
 kubectl autoscale deploy/mydemo --min=5 --max=10 --cpu-percent=80 --dry-run=client -o yaml
 
+kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
+
+
 
      
      
