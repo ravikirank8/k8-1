@@ -4,6 +4,8 @@ Author : Ravi Ravada
 
 POD:
 
+ kubectl run custompod --image=vadisala/rvadisala_docker_repo:nginx-custom --restart=Never --dry-run=client -o yaml
+
  kubectl run vad --image=vadisala/rvadisala_docker_repo:nginx-custom  --env=team=noc --dry-run=client -o yaml > b.yml
 
 kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  -- /bin/sh -c   'while true;do echo amobee;sleep  5;done' > pod1.yaml
