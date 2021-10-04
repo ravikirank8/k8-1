@@ -1,3 +1,23 @@
+
+Create a taint on node01 with key of spray, value of mortein and effect of NoSchedule
+
+
+kubectl taint nodes node1 app=blue:NoSchedule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Requests define the minimum amount of resources that containers need.
 
 If you think that your app requires at least 256MB of memory to operate, this is the request value.
