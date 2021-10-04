@@ -4,5 +4,33 @@ kubectl autoscale rs web --max=5
  
  kubectl run v --image=nginx --requests='cpu=50m,memory=50Mi' --limits='cpu=50m,memory=50Mi'  --dry-run=client -o yaml > b.yml
  
+  kubectl autoscale deploy demo --cpu-percent=50  --min=1 --max=5 --dry-run=client -o yaml
  
  stress --cpu 3
+ 
+ apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myapp
+  name: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - image: httpd
+        name: httpd
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 50m
+
