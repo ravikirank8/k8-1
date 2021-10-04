@@ -30,7 +30,8 @@ spec:
         name: httpd
         resources:
           limits:
-            cpu: 100m
+            cpu: 500m
           requests:
-            cpu: 50m
+            cpu: 200m
 
+cpuutilazation:20
