@@ -1,3 +1,20 @@
+Requests define the minimum amount of resources that containers need.
+
+If you think that your app requires at least 256MB of memory to operate, this is the request value.
+
+The application can use more than 256MB, but Kubernetes guarantees a minimum of 256MB to the container.
+
+On the other hand, limits define the max amount of resources that the container can consume.
+
+Your application might require at least 256MB of memory, but you might want to be sure that it doesn't consume more than 1GB of memory.
+
+That's your limit.
+
+Notice how your application has 256MB of memory guaranteed, but it can grow up until 1GB of memory.
+
+After that, it is stopped or throttled by Kubernetes
+
+
 kubectl autoscale rs web --max=5
 
  kubectl autoscale deploy demo --cpu-percent=50  --min=1 --max=5 --dry-run=client -o yaml
