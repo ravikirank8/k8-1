@@ -13,8 +13,24 @@
           
           
           
-          
+
+Nodeselectors:
+
+Generally, such constraints are not required, as our scheduler is intelligent enough to automatically do a reasonable placement to avoid placing the pod
+on a node with insufficient free resources, but there are some instances where you may want more control on a node where a pod lands, for example
+
+The same applies to our Kubernetes worker nodes. If you will try to schedule a heavy workload to the worker node of low capacity,
+there is a higher probability of this node filling fast and create inefficiency in the cluster. 
+So as a Kubernetes administrator or developer what you should do?
+
+You may want to ensure that any given pod should end up on a machine with an SSD attached to it
+Or You may desire to co-locate pods from two different services that communicate a lot into the same availability zone
+
+The scheduler uses these labels to match and identify the right node to place the pods on.
+
 kubectl label nodes node-1 size=Large
+
+
 
 apiVersion: v1
 kind: Pod
@@ -27,7 +43,17 @@ spec:
  nodeSelector:
   size: Large
           
+          
+Node Selector - Limitations
+
+We used a single label and selector to achieve our goal here. But what if our requirement is much more complex.
+
+  For this we have Node Affinity and Anti Affinity
+
  
+ 
+========================================================================================================================
+
 Taints and Tolearations:
 
 
