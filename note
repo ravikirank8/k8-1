@@ -10,6 +10,38 @@
   envFrom:
       - configMapRef:
           name: filename
+          
+          
+          
+          
+kubectl label nodes node-1 size=Large
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: myapp-pod
+spec:
+ containers:
+ - name: data-processor
+   image: data-processor
+ nodeSelector:
+  size: Large
+          
+ 
+Taints and Tolearations:
+
+
+taint: is the command to apply taints in the nodes
+nodes: are set of worker nodes
+nodename: is the name of the specific worker node, on which taint has to be applied, it has a key-value pair
+key-value pair: it is used to specify which application type in the pod will this node may be attached
+taint-effect: This is used to define how the pod will be treated if they are not tolerant of the taint.
+
+The effects are as below;
+
+    NoSchedule — Pods will not be schedule on the nodes
+    PreferNoSchedule — The system will try to avoid placing a pod on the node, but it’s not guaranteed
+    NoExecute — New pods will not be scheduled on the node and existing pods on the node if any will be evicted if they do not tolerate the taint
   
 
 
