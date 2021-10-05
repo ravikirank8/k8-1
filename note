@@ -2,10 +2,6 @@
   configMap
   ==========
   
-  kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
-
-  kubectl create cm mycm --from-file=variables --dry-run=client -o yaml > a.yml
-  
   
   There are 2 phases involved in configuring ConfigMaps.
 
@@ -19,8 +15,36 @@ There are 2 ways of creating a configmap.
  $kubectl create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_MODE=prod
 $ kubectl create configmap app-config --from-file=app_config.properties (Another way)
 
+
+  
+  kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
+
+  kubectl create cm mycm --from-file=variables --dry-run=client -o yaml > a.yml
+  
+    containers:
+  - image: nginx
+    name: pod1
+    envFrom:
+      - configMapRef:
+          name: mycm
+
+  ================================================================================================
+  
+ kubectl create secret generic mysecret --from-file=ssh-privatekey=/root/.ssh/id_rsa --from-literal=passphrase=password
+ 
+ kubectl create secret generic mysecret --from-literal=username=ravikiran --from-literal=passphrase=password --dry-run=client -o yaml > sec.yaml   
+
+  echo  'cmF2aQ==' | base64 -d
+  echo -n 'ravi' | base64
   
   
+   - image: nginx
+    name: pod2
+    envFrom:
+      - secretRef:
+          name: mysecret
+   
+   =============================
   envFrom:
       - secretRef:
           name: mysecret
@@ -29,10 +53,10 @@ $ kubectl create configmap app-config --from-file=app_config.properties (Another
       - configMapRef:
           name: filename
           
-       
-    
-       
+      ============================
           
+       
+   
   =================================================================================================   
           
 
