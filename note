@@ -1,5 +1,6 @@
   
-  config
+  configMap
+  ==========
   
   kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
 
