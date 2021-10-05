@@ -1,3 +1,27 @@
+  kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
+
+  kubectl create cm mycm --from-file=variables --dry-run=client -o yaml > a.yml
+  
+  
+  envFrom:
+      - secretRef:
+          name: mysecret
+  
+  envFrom:
+      - configMapRef:
+          name: filename
+  
+
+
+
+
+
+
+
+
+
+
+
 
 Create a taint on node01 with key of spray, value of mortein and effect of NoSchedule
 
