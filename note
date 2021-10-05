@@ -29,6 +29,7 @@ Or You may desire to co-locate pods from two different services that communicate
 The scheduler uses these labels to match and identify the right node to place the pods on.
 
 kubectl label nodes node-1 size=Large
+kubectl describe nodes
 
 
 
@@ -55,6 +56,10 @@ We used a single label and selector to achieve our goal here. But what if our re
 ========================================================================================================================
 
 Taints and Tolearations:
+
+taints and toleration are like what pods to be schudled on nodes
+
+taints are set on nodes and tolerations are set on pods
 
 
 taint: is the command to apply taints in the nodes
