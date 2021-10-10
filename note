@@ -34,6 +34,15 @@ spec:
  has u know about deployments and replicaset and  it will create new pods when pods deletes or restarts.so the data is lost.
  so in order to store this data you need volumes.
  
+ In this exercise, you create a hostPath PersistentVolume. Kubernetes supports hostPath for development and testing on a single-node cluster.
+ A hostPath PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+ 
+ In a production cluster, you would not use hostPath. 
+ Instead a cluster administrator would provision a network resource like a Google Compute Engine persistent disk, an NFS share, 
+ or an Amazon Elastic Block Store volume.
+ Cluster administrators can also use StorageClasses to set up dynamic provisioning.
+ 
+ 
 requirments for storage:
 1)storage should be independent pods lifecycle.
 2)storage should be accessable to all nodes
