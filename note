@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap
 
 apiVersion: v1
@@ -19,9 +29,32 @@ spec:
         name: mycm
   
   
-  
-  
-  
+ why u need volumes in kubernetes
+ u have database application what need to store data.
+ has u know about deployments and replicaset and  it will create new pods when pods deletes or restarts.so the data is lost.
+ so in order to store this data you need volumes.
+ 
+requirments for storage:
+1)storage should be independent pods lifecycle.
+2)storage should be accessable to all nodes
+3)storage should survive cluster crashes
+
+persistance voulme is just like other resource like memory,ram and cpu 
+
+all the you define on your volumes differs from cloud to cloud
+
+it is recommned to have remote storge than local stoarge becuase it will available to all nodes with in cluster.
+administrator will create pv
+devlopers who uses pv will create pvc
+u just claiming what ever persistant volumes u have.
+
+
+storage class is a way to provision persistent volumes dynamically
+in yaml you define in remote persistant volume and claim it.
+
+=====================================================================================
+
+
   
   kubectl explain pod.spec.volumes
   
@@ -72,6 +105,9 @@ spec:
         emptyDir: {}
         
        
+
+
+
 
  Persistent Volume (PV) is an abstraction for the physical storage device that you have attached to the cluster. Pods can use this storage space using Persistent Volume Claims (PVC).
  PV is an abstraction for the physical storage device that attached to the cluster. PV is used to manage durable storage which needs actual physical storage.
