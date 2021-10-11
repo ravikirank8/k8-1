@@ -7,7 +7,7 @@ kubectl expose deploy/web --type=ClusterIP --port=80 --dry-run=client -o yaml > 
 
 kubectl expose deployment/web  --type=LoadBalancer --port=80 --dry-run=client -o yaml > loadbalancer.yaml
 
-kubectl expose deployment/web  --type=NodePort --port=80 --dry-run=client -o yaml
+kubectl expose deployment/web  --type=NodePort --port=80 --dry-run=client -o yaml > nodeport.yaml
 
 
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap
@@ -95,6 +95,11 @@ spec:
   - name: test-volume
     hostPath:
     path: /data
+    
+    
+  sudo apt-get update
+sudo apt-get install procps
+ps aux
 
 
 
