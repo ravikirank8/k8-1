@@ -6,6 +6,34 @@ port number : port number exposed internally inside a cluster
 A Service enables network access to a set of Pods in Kubernetes.
 
 
+kubectl create  deploy web  --image=nginx --dry-run=client -o yaml > web.yaml
+
+kubectl expose deploy/web --type=ClusterIP --port=80 --dry-run=client -o yaml > clusterip.yaml
+
+kubectl expose deployment/web  --type=LoadBalancer --port=80 --dry-run=client -o yaml > loadbalancer.yaml
+
+kubectl expose deployment/web  --type=NodePort --port=80 --dry-run=client -o yaml > nodeport.yaml
+
+. ClusterIP is the default and most common service type.
+ Kubernetes will assign a cluster-internal IP address to ClusterIP service.
+  This  makes the  service only reachable within the cluster.
+ You cannot make requests to service (pods) from outside the cluster. 
+ Inter service communication within the cluster
+
+
+This service visible outside the Kubernetes cluster by the node’s IP address and the port number declared . 
+The service also has  to be of type NodePort (if this field isn’t specified, Kubernetes will allocate a node port automatically). 
+Node port must be in the range of 30000–32767. Manually allocating a port to the service is optional
+
+
+
+ Every time you want to expose a service to the outside world, you have  to create a new        LoadBalancer  and get an IP address.
+ It exposes the service externally using a cloud providers load Balancer
+ Each cloud provider (AWS, Azure, GCP,) has its own native load balancer implementation. The cloud provider will create a load balancer, which then automatically routes requests to your Kubernetes Service.
+
+
+
+
 
 
 kubectl create  deploy web  --image=nginx --dry-run=client -o yaml > web.yaml
