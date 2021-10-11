@@ -50,6 +50,8 @@ requirments for storage:
 2)storage should be accessable to all nodes
 3)storage should survive cluster crashes
 
+
+
 persistance voulme is just like other resource like memory,ram and cpu 
 
 all the you define on your volumes differs from cloud to cloud
@@ -67,6 +69,58 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 storage class is a way to provision persistent volumes dynamically
 in yaml you define in remote persistant volume and claim it.
+
+sudo mkdir /mnt/data
+
+ReadWriteOnce, which means the volume can be mounted as read-write by a single Node.
+
+It defines the StorageClass name manual for the PersistentVolume, which will be used to bind PersistentVolumeClaim requests to this PersistentVolume.
+
+When a user is done with their volume, they can delete the PVC objects from the API that allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim.
+Currently, volumes can either be Retained, Recycled, or Deleted.
+
+Reclaim Policy
+
+Current reclaim policies are:
+
+    Retain -- manual reclamation
+    Recycle -- basic scrub (rm -rf /thevolume/*)
+    Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk, or OpenStack Cinder volume is deleted
+
+Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
+
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+
+sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
 
 =====================================================================================
 
