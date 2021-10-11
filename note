@@ -1,11 +1,13 @@
 
 
 
+kubectl create  deploy web  --image=nginx --dry-run=client -o yaml > web.yaml
 
+kubectl expose deploy/web --type=ClusterIP --port=80 --dry-run=client -o yaml > clusterip.yaml
 
+kubectl expose deployment/web  --type=LoadBalancer --port=80 --dry-run=client -o yaml > loadbalancer.yaml
 
-
-
+kubectl expose deployment/web  --type=NodePort --port=80 --dry-run=client -o yaml
 
 
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap
