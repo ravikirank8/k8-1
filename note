@@ -1,4 +1,11 @@
 
+targetport: the port the container is listening on
+
+port number : port number exposed internally inside a cluster
+
+A Service enables network access to a set of Pods in Kubernetes.
+
+
 
 
 kubectl create  deploy web  --image=nginx --dry-run=client -o yaml > web.yaml
