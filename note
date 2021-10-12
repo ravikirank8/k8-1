@@ -1,4 +1,67 @@
+Readiness & Liveness in PODS:
+==============================
 
+This is used for testing. Before the POD availabe readinees probe will check wheather your defined service is ready or not . if running  Pod gets available 
+
+Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
+
+To perform a probe, the kubelet executes the command cat /tmp/healthy in the target container
+
+The initialDelaySeconds field tells the kubelet that it should wait 5 seconds before performing the first probe
+
+The periodSeconds field specifies that the kubelet should perform a liveness probe every 5 seconds.
+
+If the command succeeds, it returns 0, and the kubelet considers the container to be alive and healthy. 
+If the command returns a non-zero value, the kubelet kills the container and restarts it.
+
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    readinessProbe:
+     exec:
+      command:
+         - cat
+         - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+  restartPolicy: Always
+  
+  
+  
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    readinessProbe:
+     exec:
+      command:
+         - touch
+         - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+    livenessProbe:
+     exec:
+        command:
+        - cat
+        - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+  restartPolicy: Always
+
+  
+  
   configMap
   ==========
   
@@ -104,73 +167,6 @@ spec:
             name: mysql
             key: password
 ==================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-This is used for testing. Before the POD availabe readinees probe will check wheather your defined service is ready or not . if running  Pod gets available 
-
-Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
-
-
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    readinessProbe:
-     exec:
-      command:
-         - cat
-         - /tmp/healthy
-     initialDelaySeconds: 5
-     periodSeconds: 5
-  restartPolicy: Always
-  
-  
-  
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    readinessProbe:
-     exec:
-      command:
-         - touch
-         - /tmp/healthy
-     initialDelaySeconds: 5
-     periodSeconds: 5
-    livenessProbe:
-     exec:
-        command:
-        - cat
-        - /tmp/healthy
-     initialDelaySeconds: 5
-     periodSeconds: 5
-  restartPolicy: Always
-
-
-
 
 targetport: the port the container is listening on
 
