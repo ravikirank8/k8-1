@@ -19,6 +19,33 @@ spec:
      initialDelaySeconds: 5
      periodSeconds: 5
   restartPolicy: Always
+  
+  
+  
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    readinessProbe:
+     exec:
+      command:
+         - touch
+         - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+    livenessProbe:
+     exec:
+        command:
+        - cat
+        - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+  restartPolicy: Always
+
 
 
 
