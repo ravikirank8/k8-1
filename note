@@ -1,6 +1,31 @@
 
 
 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sec
+spec:
+  containers:
+  - image: nginx
+    name: sec
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql
+            key: password
+
+
+
+
+
+
+
+
+
+
 apiVersion: v1
 kind: Pod
 metadata:
