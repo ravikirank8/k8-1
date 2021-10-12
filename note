@@ -1,3 +1,26 @@
+This is used for testing. Before the POD availabe readinees probe will check wheather your defined service is ready or not . if running  Pod gets available 
+
+Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    readinessProbe:
+     exec:
+      command:
+         - cat
+         - /tmp/healthy
+     initialDelaySeconds: 5
+     periodSeconds: 5
+  restartPolicy: Always
+
+
 
 targetport: the port the container is listening on
 
