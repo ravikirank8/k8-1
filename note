@@ -1,32 +1,77 @@
 
+  configMap
+  ==========
+  
+  
+  There are 2 phases involved in configuring ConfigMaps.
+
+    First, create the configMaps
+    Second, Inject then into the pod.
+
+There are 2 ways of creating a configmap.
+
+    The Imperative way
+    
+ $kubectl create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_MODE=prod
+$ kubectl create configmap app-config --from-file=app_config.properties (Another way)
 
 
+  
+  kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
+
+  kubectl create cm mycm --from-file=variables --dry-run=client -o yaml > a.yml
+  
+    containers:
+  - image: nginx
+    name: pod1
+    envFrom:
+      - configMapRef:
+          name: mycm
+
+  ================================================================================================
+  
+ kubectl create secret generic mysecret --from-file=ssh-privatekey=/root/.ssh/id_rsa --from-literal=passphrase=password
+ 
+ kubectl create secret generic mysecret --from-literal=username=ravikiran --from-literal=passphrase=password --dry-run=client -o yaml > sec.yaml   
+
+  echo  'cmF2aQ==' | base64 -d
+  echo -n 'ravi' | base64
+  
+  
+   - image: nginx
+    name: pod2
+    envFrom:
+      - secretRef:
+          name: mysecret
+   
+   =============================
+  envFrom:
+      - secretRef:
+          name: mysecret
+  
+  envFrom:
+      - configMapRef:
+          name: filename
+          
+ 
+ 
+ kubectl create secret generic mysecret --from-literal=username=ravikiran --from-literal=passphrase=something
 
 apiVersion: v1
 kind: Pod
 metadata:
-  name: sec
+  name: secret-test-pod
 spec:
   containers:
-  - image: nginx
-    name: sec
-    env:
-      - name: MYSQL_ROOT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysql
-            key: password
-
-
-
-
-
-
-
-
-
-
-apiVersion: v1
+    - name: test-container
+      image: nginx
+      envFrom:
+      - secretRef:
+          name: mysecret
+  restartPolicy: Never
+  
+  
+  apiVersion: v1
 kind: Pod
 metadata:
   name: sec1
@@ -42,6 +87,28 @@ spec:
     secret:
       secretName: mysecret
   restartPolicy: Always
+
+==========================================================================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sec
+spec:
+  containers:
+  - image: nginx
+    name: sec
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql
+            key: password
+==================================================================================
+
+
+
+
+
 
 
 
