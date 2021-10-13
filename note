@@ -1,5 +1,54 @@
 https://katharharshal1.medium.com/kubernetes-job-cronjob-c1ebfc46273d
 
+https://katharharshal1.medium.com/kubernetes-job-cronjob-c1ebfc46273d
+
+Jobs:
+
+Now we see different types of job parameters.
+
+    Completions.
+    parallelism.
+    backofflimit.
+    activeDeadlineSecond
+    
+Completions
+
+    completions: Basically the repetition of a process, default it’s 1.
+
+e.x: if we set completion as value 2, the jobs runes 2times.
+
+2. In this pod runes one after another, when 1st pod completed then 2nd pod is started. it’s also called sequential processing.
+
+========
+
+parallelism
+
+    In completions, we see jobs runners sequential one after another.
+    Using the parallelism we can set the limit that how many jobs can run in parallel
+
+e.x: if u set completion: 2, and parallelism:2 both the pods are running at the same time
+
+=====
+
+
+backoffLimit
+
+    If the container is failing to load the image or completing the job, then still it creates more pods one after another until it succeeds.
+    In this situation, backoffLimit is used.
+    We set the backoffLimit for the job , that not create more pods once it’s failed.
+
+E.X: backoffLimit:2, once pods failed 2 times it won’t create more pods.
+
+==========
+
+activeDeadlineSecond
+
+    In we can set a threshold to say, if I know job taking 10 sec to come up, so I set an activeDeadlineSecond as a 10second.
+    If I set activeDeadlineSecond: 10s, then if pods taking more time then the 10second then pods are automatically terminated.
+    
+    
+
+
 
 Readiness & Liveness in PODS:
 ==============================
