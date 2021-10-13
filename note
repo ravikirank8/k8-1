@@ -1,3 +1,22 @@
+statefulset:
+==============
+
+zookeeper:
+master and follower method
+i have 3 zookeeper(pods)
+1 master 2 followers
+first it need to pass infromation or metadata will go master and then it should go to followers
+zk0,zk1,zk2 deploy
+1)when create deploy all pods get deployed all at once not a statefulset(kafa)
+
+in mysql first master node deploy master info slave1 -> slave2 -> slave3
+in statefulset it deploy one by one 
+
+in deployment when pod create podname(hostname of pod) and ip is dynamic
+using stateful set we can create static hostname and ip
+
+
+
 https://katharharshal1.medium.com/kubernetes-job-cronjob-c1ebfc46273d
 
 https://katharharshal1.medium.com/kubernetes-job-cronjob-c1ebfc46273d
