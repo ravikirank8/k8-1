@@ -15,6 +15,12 @@ in statefulset it deploy one by one
 in deployment when pod create podname(hostname of pod) and ip is dynamic
 using stateful set we can create static hostname and ip
 
+master1 write to data - > mysq10 and msql0 to replicate  to msql1 and msql2. 
+when create service it writes to all at once
+so we need headless service
+it will point to dns server msq0 we dont give any ip address
+so it will write to msql to msql2 msql2 because it point to head but msqls read to from master
+
 
 
 https://katharharshal1.medium.com/kubernetes-job-cronjob-c1ebfc46273d
