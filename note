@@ -1,3 +1,93 @@
+Mutlicontainer
+=============
+
+The 1st container runs nginx server and has the shared volume mounted to the directory /usr/share/nginx/html.
+The 2nd container uses the Debian image and has the shared volume mounted to the directory /html.
+Every second, the 2nd container adds the current date and time into the index.html file, which is located in the shared volume.
+When the user makes an HTTP request to the Pod, the Nginx server reads this file and transfers it back to the user in response to the request.
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mc
+spec:
+  containers:
+  - name: web
+    image: nginx
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+  - name: os
+    image: centos
+    volumeMounts:
+    - name: html
+      mountPath: /html
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do
+          date >> /html/index.html;
+          sleep 1;
+        done
+  volumes:
+  - name: html
+    emptyDir: {}
+============================
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mcs
+  name: mcs
+spec:
+  containers:
+  - image: nginx
+    name: web
+    volumeMounts:
+    - name: html
+      mountPath: /html
+  - image: centos:latest
+    name: os1
+    volumeMounts:
+    - name: html
+      mountPath: /test1
+    command: ['sh', '-c', 'sleep 3600']
+  - image: ubuntu
+    name: os2
+    volumeMounts:
+    - name: html
+      mountPath: /test2
+    command: ['sh', '-c', 'sleep 3600']
+  - image: centos:7
+    name: os3
+    volumeMounts:
+    - name: html
+      mountPath: /test3
+    command: ['sh', '-c', 'sleep 3600']
+  - image: redis
+    name: os4
+    volumeMounts:
+    - name: html
+      mountPath: /html2
+ volumes:
+ - name: html
+   emptyDir: {}
+=================
+
+
+
+
+
+kubectl exec -it mc1 -c web -- /bin/sh
+ kubectl exec -it mc1 -c web -- /bin/sh
+
+
+
+
+
+
 https://karuppiah7890.github.io/blog/posts/kubernetes-jobs-and-cronjobs-do-you-need-them-why/
 
 
