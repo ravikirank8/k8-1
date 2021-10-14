@@ -1,10 +1,25 @@
 Mutlicontainer
 =============
 
+Containers in a Pod run on a “logical host”; they use the same network namespace (in other words, the same IP address and port space),
+and the same IPC namespace. They can also use shared volumes. 
+These properties make it possible for these containers to efficiently communicate, ensuring data locality. 
+
 The 1st container runs nginx server and has the shared volume mounted to the directory /usr/share/nginx/html.
 The 2nd container uses the Debian image and has the shared volume mounted to the directory /html.
 Every second, the 2nd container adds the current date and time into the index.html file, which is located in the shared volume.
 When the user makes an HTTP request to the Pod, the Nginx server reads this file and transfers it back to the user in response to the request.
+
+
+========
+
+ This is important because with multiple processes in the same container,
+ it is harder to troubleshoot the container because logs from different processes will be mixed together,
+ and it is harder to manage the processes lifecycle, for example to take care of “zombie” processes when their parent process dies.
+ Second, using several containers for an application is simpler and more transparent, and enables decoupling software dependencies. 
+ Also, more granular containers can be reused between teams.
+ 
+ Sidecar containers “help” the main container. Some examples include log or data change watchers, monitoring adapters, and so on.
 
 
 
@@ -75,13 +90,8 @@ spec:
  - name: html
    emptyDir: {}
 =================
-
-
-
-
-
 kubectl exec -it mc1 -c web -- /bin/sh
- kubectl exec -it mc1 -c web -- /bin/sh
+kubectl exec -it mc1 -c web -- /bin/sh
 
 
 
