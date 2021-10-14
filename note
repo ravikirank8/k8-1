@@ -1,5 +1,8 @@
 https://karuppiah7890.github.io/blog/posts/kubernetes-jobs-and-cronjobs-do-you-need-them-why/
 
+
+Use Jobs and CronJobs to control and manage Kubernetes pods and containers.
+
 A job retries pods until they complete, so that you can tolerate errors that cause pods to be deleted.
 
 If you want to run a job repeatedly and periodically, you can use CronJob alpha or cronetes.
