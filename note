@@ -1,3 +1,33 @@
+A job retries pods until they complete, so that you can tolerate errors that cause pods to be deleted.
+
+If you want to run a job repeatedly and periodically, you can use CronJob alpha or cronetes.
+
+Some Helm Charts use Jobs to run install, setup, or test commands on clusters, as part of installing services. (Example).
+
+If you save the YAML for the job then you can re-run it by deleting the old job an creating it again, or 
+by editing the YAML to change the name (or use e.g. sed in a script). 
+
+===================
+As the Kubernetes documentation explains, a Kubernetes Job creates one or more pods and ensures that a specified number of the pods terminates
+when the task (Job) completes.
+
+Just like in a typical operating system, the ability to perform automated,
+scheduled jobs without user interaction is important in the Kubernetes world. 
+But Kubernetes Jobs do more than just run automated jobs, and there are multiple ways to utilize them through:
+
+Each of these features has its own purpose, with the common function to ensure that pods run continuously. 
+In failure scenarios, these controllers either restart or reschedule pods to ensure the services in the pods continue running.
+
+Jobs play an important role in Kubernetes, especially for running batch processes
+Jobs differ from other Kubernetes controllers in that they run tasks until completion, 
+rather than managing the desired state such as in Deployments, ReplicaSets, and StatefulSets.
+
+A CronJob the object allows you to schedule Job execution rather than starting them manually.
+
+kubectl create cronjob busybox --image=busybox --schedule="*/1 * * * *"   -o yaml --dry-run=client -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+
+kubectl create job1 rav --image=busybox -o yaml  --dry-run=client   -- /bin/sh -c 'date; echo sleeping....; sleep 90s; echo exiting...'
+
 Mutlicontainer
 =============
 
