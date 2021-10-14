@@ -1,5 +1,17 @@
- kubectl exec mc1 -c web -- /bin/sh
+Mutlicontainer
+=============
+
+The 1st container runs nginx server and has the shared volume mounted to the directory /usr/share/nginx/html.
+The 2nd container uses the Debian image and has the shared volume mounted to the directory /html.
+Every second, the 2nd container adds the current date and time into the index.html file, which is located in the shared volume.
+When the user makes an HTTP request to the Pod, the Nginx server reads this file and transfers it back to the user in response to the request.
+
+
+
+kubectl exec -it mc1 -c web -- /bin/sh
  kubectl exec -it mc1 -c web -- /bin/sh
+
+
 
 
 
