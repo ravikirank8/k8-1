@@ -1,3 +1,10 @@
+statefulsets
+headless
+ingress,network policies
+taints and toleration and node affinity
+multicontainer pod
+jobs and cronjobs
+
 Mutlicontainer
 =============
 
