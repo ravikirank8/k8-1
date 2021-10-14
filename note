@@ -7,6 +7,10 @@ Some Helm Charts use Jobs to run install, setup, or test commands on clusters, a
 If you save the YAML for the job then you can re-run it by deleting the old job an creating it again, or 
 by editing the YAML to change the name (or use e.g. sed in a script). 
 
+One of the use case can be to take a backup of a DB. But as already mentioned that are some overheads to run a job e.g.
+When a Job completes the Pods are not deleted . so you need to manually delete the job(which will also delete the pods created by job). 
+so recommended option will be to use Cron instead of Jobs 
+
 ===================
 As the Kubernetes documentation explains, a Kubernetes Job creates one or more pods and ensures that a specified number of the pods terminates
 when the task (Job) completes.
