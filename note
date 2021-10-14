@@ -1,3 +1,8 @@
+ kubectl exec mc1 -c web -- /bin/sh
+ kubectl exec -it mc1 -c web -- /bin/sh
+
+
+
 statefulset:
 ===========
 
