@@ -1,3 +1,14 @@
+demonsets
+staticpods
+multipleschedulers
+init containers
+
+cluster maintence
+os and cluster upgrades
+backup and restore methodes and etcd
+
+*security and network
+
 statefulsets
 headless
 ingress,network policies
