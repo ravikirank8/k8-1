@@ -1,0 +1,9 @@
+helm search hub wordpress
+helm search hub wordpress  --max-col-width=0
+helm repo list
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm search repo wordpress --versions
+helm show readme bitnami/wordpress --version 10.0.3
+for username  and passwd related values helm show values bitnami/wordpress --version 10.0.3
+
+
