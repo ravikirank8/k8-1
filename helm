@@ -16,6 +16,32 @@ helm install releasename(it can be anything) chartname
 helm install --dry-run --debug
 helm template :- It will do the validation and generate the YAML manifest but it can not guarantee that generated kubernetes resource(YAMLs) is valid or not.
 
+==================
+Env variable using helm
+Helm chart provides a couple of ways to access or pass environment variables into the templates
+
+set
+values.yaml
+
+helm install --set replicaCount=2 helloworld-1 world
+
+1. Set multiple values and Overriding
+helm install --set replicaCount=2  --set replicaCount=3 helloworldrelease helloworld
+
+helm install -f myvalues.yaml helloworldrelease helloworld 
+
+2.2 Iterate over key-value map
+
+create vi env-values.yaml
+examplemap:
+ - name: "USERNAME"
+   value: "test1"
+ - name: "PASSWORD"
+   value: "test2" 
+
+
+
+
 
 
 
