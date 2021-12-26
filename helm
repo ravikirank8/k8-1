@@ -4,6 +4,12 @@ helm repo list
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo wordpress --versions
 helm show readme bitnami/wordpress --version 10.0.3
+========================================
 for username  and passwd related values helm show values bitnami/wordpress --version 10.0.3
+vi wordpress-values.yaml
+Next insert all the values like username,password,servicetype,email 
+helm install wordpress bitnami/wordpress --values=wordpress-values.yaml --namespace nswordpress --version 10.0.3
+
+
 
 
