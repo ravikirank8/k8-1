@@ -1,3 +1,10 @@
+Let’s see what happens when the Helm chart is installed into Kubernetes.
+Helm reads the chart
+It reads the configuration values from the Values.yml and generates the manifest files with these values.
+Helm sends these generated manifests to the Kubernetes API server
+Kubernetes takes these manifest files and creates desired resources in the cluster.
+
+
 helm search hub wordpress
 helm search hub wordpress  --max-col-width=0
 helm repo list
