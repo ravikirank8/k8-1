@@ -1,0 +1,18 @@
+switch is connect two different system
+router is to connect two different networks
+is network is a room then gateway is the door to a network-> to existing routing config in a system run route command(display kernel routing tables)
+
+to reach the other network u need to routing configuration in router using the command 
+ip route add 192.168.2.0/24 via 192.168.1.1
+here 192.168.1.1 is system A 
+here 192.168.2.0/24 is system C
+
+suppose u dont what network u need to  need route to your network you can set it as
+ip route add default via 192.168.2.1
+default is also same as 0.0.0.0
+both are same
+u can check this by firing route command
+
+
+ip link to check interfaces between the network
+
