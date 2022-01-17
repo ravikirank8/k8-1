@@ -13,6 +13,10 @@ default is also same as 0.0.0.0
 both are same
 u can check this by firing route command
 
+but sometime connecting from one network to another network is have issue related to packet forwarding
+cat /proc/sys/net/ipv4/ip_forward(0) by default
+set to 1 packets forward and modity in /etc/sysconf file
+
 
 ip link to check interfaces between the network
 
