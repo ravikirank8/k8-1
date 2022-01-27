@@ -34,6 +34,13 @@ wordpress/
   templates/          # A directory of templates that, when combined with values,
                       # will generate valid Kubernetes manifest files.
   templates/NOTES.txt # OPTIONAL: A plain text file containing short usage notes
+  
+  Writing helmcharts:
+  
+  https://medium.com/swlh/helm-chart-development-guide-bbc525d3b448
+  
+  
+  ===========================================================
 
 https://lzone.de/cheat-sheet/Linux-Networking
 =========================
