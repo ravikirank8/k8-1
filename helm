@@ -11,6 +11,8 @@ helm repo list
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo wordpress --versions
 helm show readme bitnami/wordpress --version 10.0.3
+helm install testchart stable/tomcat --version 0.4.0
+
 ========================================
 for username  and passwd related values helm show values bitnami/wordpress --version 10.0.3
 vi wordpress-values.yaml
@@ -18,10 +20,17 @@ Next insert all the values like username,password,servicetype,email
 helm install wordpress bitnami/wordpress --values=wordpress-values.yaml --namespace nswordpress --version 10.0.3
 
 =========================
-helm templete chartname
 helm install releasename(it can be anything) chartname
 helm install --dry-run --debug
+helm install --dry-run testchart stable/wordpress
+helm install testchart stable/wordpress --wait --timeout 10s
+helm show <values|chart|readme|all chartname
+helm show values bitnami/wordpress --version 10.0.3
+
+
+
 helm template :- It will do the validation and generate the YAML manifest but it can not guarantee that generated kubernetes resource(YAMLs) is valid or not.
+helm templete chartname
 
 ==================
 Env variable using helm
