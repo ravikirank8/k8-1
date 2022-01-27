@@ -38,6 +38,7 @@ wordpress/
   
   Writing helmcharts:
   
+  https://devopslearning.medium.com/introduction-to-helm-and-creating-your-first-helm-chart-53c5df736bf2 (good refernce follow it)
   https://docs.bitnami.com/tutorials/create-your-first-helm-chart/
   https://medium.com/swlh/helm-chart-development-guide-bbc525d3b448
 
