@@ -40,6 +40,28 @@ wordpress/
   
   https://docs.bitnami.com/tutorials/create-your-first-helm-chart/
   https://medium.com/swlh/helm-chart-development-guide-bbc525d3b448
+
+==========================================================================================
+
+templates
+
+Templates is one of the most important directory and this is where helm looks for your kubernetes object yaml definitions(Deployment,Services,etc).
+
+values.yaml
+
+If templates holds the resource definition, then values provides the way to parameterize it.
+
+_helpers.tpl
+
+Helm allows the use of Go templating in the resources files for kubernetes. The _helpers.tpl is used to define Go template helpers.
+
+NOTES.txt
+
+This is the plain text file that get printed out when the chart is successfully deployed. Usually this contains the next step for using the chart.
+
+Chart.yaml
+
+This file contain the metadata such as chart version, application version or constraints like minimum version of kubernetes/Helm which is required to manage this chart. Some required fields in Chart.yaml
   
   
   ===========================================================
