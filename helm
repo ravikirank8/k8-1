@@ -14,10 +14,7 @@ helm show readme bitnami/wordpress --version 10.0.3
 helm install testchart stable/tomcat --version 0.4.0
 
 ========================================
-for username  and passwd related values helm show values bitnami/wordpress --version 10.0.3
-vi wordpress-values.yaml
-Next insert all the values like username,password,servicetype,email 
-helm install wordpress bitnami/wordpress --values=wordpress-values.yaml --namespace nswordpress --version 10.0.3
+
 
 =========================
 helm install releasename(it can be anything) chartname
@@ -28,7 +25,20 @@ helm show <values|chart|readme|all chartname
 helm show values bitnami/wordpress --version 10.0.3
 helm show chart bitnami/wordpress
 
+first give helm show know which values to pass and pass it to chart
+helm show values stable/tomcat
+helm install testchart stable/tomact --set service.typ=Nodeport
 
+
+for username  and passwd related values helm show values bitnami/wordpress --version 10.0.3
+vi wordpress-values.yaml
+Next insert all the values like username,password,servicetype,email 
+helm install wordpress bitnami/wordpress --values=wordpress-values.yaml --namespace nswordpress --version 10.0.3
+
+after installation
+helm get manifest testchart2
+helm get <all|manifest|valuse release
+helm get all testchart
 
 
 helm template :- It will do the validation and generate the YAML manifest but it can not guarantee that generated kubernetes resource(YAMLs) is valid or not.
