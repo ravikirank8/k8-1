@@ -3,6 +3,7 @@ Helm reads the chart
 It reads the configuration values from the Values.yml and generates the manifest files with these values.
 Helm sends these generated manifests to the Kubernetes API server
 Kubernetes takes these manifest files and creates desired resources in the cluster.
+Helm allows focusing on the most important values
 
 
 helm search hub wordpress
