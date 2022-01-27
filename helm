@@ -26,6 +26,8 @@ helm install --dry-run testchart stable/wordpress
 helm install testchart stable/wordpress --wait --timeout 10s
 helm show <values|chart|readme|all chartname
 helm show values bitnami/wordpress --version 10.0.3
+helm show chart bitnami/wordpress
+
 
 
 
