@@ -7,11 +7,20 @@ Kubernetes takes these manifest files and creates desired resources in the clust
 
 helm search hub wordpress
 helm search hub wordpress  --max-col-width=0
-helm repo list
+go to web link and add repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo list
 helm search repo wordpress --versions
 helm show readme bitnami/wordpress --version 10.0.3
 helm install testchart stable/tomcat --version 0.4.0
+helm show <values|chart|readme|all chartname
+helm get <all|manifest|valuse release
+helm install --dry-run testchart stable/wordpress
+helm install testchart stable/tomact --set service.typ=Nodeport
+helm show values stable/tomcat
+helm pull chartname
+helm pull --untar chartname
+helm install testchart urlofchartname
 
 ========================================
 
@@ -39,10 +48,13 @@ after installation
 helm get manifest testchart2
 helm get <all|manifest|valuse release
 helm get all testchart
+helm status releasename
 
+=====================================
 
-helm template :- It will do the validation and generate the YAML manifest but it can not guarantee that generated kubernetes resource(YAMLs) is valid or not.
-helm templete chartname
+helm pull chartname
+helm pull --untar chartname
+helm install testchart urlofchartname
 
 ==================
 Env variable using helm
@@ -67,6 +79,10 @@ examplemap:
  - name: "PASSWORD"
    value: "test2" 
 
+
+
+helm template :- It will do the validation and generate the YAML manifest but it can not guarantee that generated kubernetes resource(YAMLs) is valid or not.
+helm templete chartname
 
 
 
