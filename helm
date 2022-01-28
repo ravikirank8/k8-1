@@ -94,7 +94,7 @@ helm get <all|manifest|valuse release
 helm get all testchart
 helm status releasename
 
-=====================================
+===========================================================================================================
 
 helm pull chartname
 helm pull --untar chartname
