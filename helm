@@ -1,3 +1,6 @@
+https://jhooq.com/categories/helm-chart/
+https://jhooq.com/helm-multiple-values-files/
+
 Let’s see what happens when the Helm chart is installed into Kubernetes.
 Helm reads the chart
 It reads the configuration values from the Values.yml and generates the manifest files with these values.
@@ -24,6 +27,7 @@ helm pull --untar chartname
 helm install testchart urlofchartname
 
 ========================================
+
 
 wordpress/
   Chart.yaml          # A YAML file containing information about the chart
