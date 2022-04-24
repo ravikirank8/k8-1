@@ -493,7 +493,16 @@ docker ps
 kubectl get pods -n kube-system
 
 
+==============================
 
+Multiple Schedulers
+
+Your kubernetes cluster can schedule multiple schedulers at the same time.
+$ wget https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-scheduler
+
+https://github.com/kodekloudhub/certified-kubernetes-administrator-course/blob/master/docs/03-Scheduling/18-Multiple-Schedulers.md
+
+  schedulerName: my-custom-scheduler
 
 
 =================================================================
