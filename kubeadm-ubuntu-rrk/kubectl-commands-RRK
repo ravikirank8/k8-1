@@ -79,6 +79,9 @@ kubectl run nginx --image=nginx --restart=Never --port=80
  ============================================================================================================
  Lables and Selectors:
  ======================
+ 
+ Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects 
+ 
  kubectl run fronend --image=nginx --restart=Never --labels=env=prod,team=amobee --dry-run=client -o yaml
 
  kubectl run fronend --image=nginx --restart=Never --labels=env=dev,team=turn,app=2.0 --dry-run=client -o yaml
@@ -99,8 +102,17 @@ kubectl run nginx --image=nginx --restart=Never --port=80
   
  Annotations
  ============
- 
+ Annotations allow you to add non-identifying metadata to Kubernetes objects.
+ Examples include phone numbers of persons responsible for the object or tool information for debugging purposes.
+ In short, annotations can hold any kind of information that is useful and can provide context to DevOps teams
+
  kubectl annotate pod/fronend contact="noc"
+ 
+ Environment:
+ 
+. When you create a Pod, you can set environment variables for the containers that run in the Pod.
+. To set environment variables, include the env  field in the configuration file.
+
     
 
 =====================================================================================
