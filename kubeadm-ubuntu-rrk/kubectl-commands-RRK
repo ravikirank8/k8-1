@@ -330,6 +330,10 @@ spec:
 Rollback:
 =========
 
+https://github.com/kodekloudhub/certified-kubernetes-administrator-course/blob/master/docs/05-Application-Lifecycle-Management/02-RollingUpdates-and-Rollback.md
+
+https://www.educative.io/blog/kubernetes-deployments-strategies
+
 Kubernetes Rolling:
 Check how the deployment rollout is going
 kubectl rollout status deploy nginx
