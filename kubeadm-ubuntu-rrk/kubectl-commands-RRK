@@ -23,7 +23,107 @@ kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  --
 kubectl exec busybox -c busybox -- ls
 
  kubectl run rvada --image=vadisala/rvadisala_docker_repo:nginx-custom
+ 
+ 
+
+Mutlicontainer
+=============
+
+Containers in a Pod run on a “logical host”; they use the same network namespace (in other words, the same IP address and port space),
+and the same IPC namespace. They can also use shared volumes. 
+These properties make it possible for these containers to efficiently communicate, ensuring data locality. 
+
+The 1st container runs nginx server and has the shared volume mounted to the directory /usr/share/nginx/html.
+The 2nd container uses the Debian image and has the shared volume mounted to the directory /html.
+Every second, the 2nd container adds the current date and time into the index.html file, which is located in the shared volume.
+When the user makes an HTTP request to the Pod, the Nginx server reads this file and transfers it back to the user in response to the request.
+
+
+========
+
+ This is important because with multiple processes in the same container,
+ it is harder to troubleshoot the container because logs from different processes will be mixed together,
+ and it is harder to manage the processes lifecycle, for example to take care of “zombie” processes when their parent process dies.
+ Second, using several containers for an application is simpler and more transparent, and enables decoupling software dependencies. 
+ Also, more granular containers can be reused between teams.
+ 
+ Sidecar containers “help” the main container. Some examples include log or data change watchers, monitoring adapters, and so on.
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mc
+spec:
+  containers:
+  - name: web
+    image: nginx
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+  - name: os
+    image: centos
+    volumeMounts:
+    - name: html
+      mountPath: /html
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do
+          date >> /html/index.html;
+          sleep 1;
+        done
+  volumes:
+  - name: html
+    emptyDir: {}
+============================
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mcs
+  name: mcs
+spec:
+  containers:
+  - image: nginx
+    name: web
+    volumeMounts:
+    - name: html
+      mountPath: /html
+  - image: centos:latest
+    name: os1
+    volumeMounts:
+    - name: html
+      mountPath: /test1
+    command: ['sh', '-c', 'sleep 3600']
+  - image: ubuntu
+    name: os2
+    volumeMounts:
+    - name: html
+      mountPath: /test2
+    command: ['sh', '-c', 'sleep 3600']
+  - image: centos:7
+    name: os3
+    volumeMounts:
+    - name: html
+      mountPath: /test3
+    command: ['sh', '-c', 'sleep 3600']
+  - image: redis
+    name: os4
+    volumeMounts:
+    - name: html
+      mountPath: /html2
+ volumes:
+ - name: html
+   emptyDir: {}
+=================
+kubectl exec -it mc1 -c web -- /bin/sh
+kubectl exec -it mc1 -c web -- /bin/sh
+
 ==================================================================
+
+=====================
 Namespaces
 ============
 
@@ -116,6 +216,64 @@ kubectl run nginx --image=nginx --restart=Never --port=80
     
 
 =====================================================================================
+
+* Replication Controller and Replica Set 
+
+Replica Set is the next generation of Replication Controller. Replication controller is kinda imperative, but replica sets try to be as declarative as possible.
+
+1.The main difference between a Replica Set and a Replication Controller right now is the selector support.
+
++--------------------------------------------------+-----------------------------------------------------+
+|                   Replica Set                    |               Replication Controller                |
++--------------------------------------------------+-----------------------------------------------------+
+| Replica Set supports the new set-based selector. | Replication Controller only supports equality-based |
+| This gives more flexibility. for eg:             | selector. for eg:                                   |
+|          environment in (production, qa)         |             environment = production                |
+|  This selects all resources with key equal to    | This selects all resources with key equal to        |
+|  environment and value equal to production or qa | environment and value equal to production           |
++--------------------------------------------------+-----------------------------------------------------+
+2.The second thing is the updating the pods.
++-------------------------------------------------------+-----------------------------------------------+
+|                      Replica Set                      |            Replication Controller             |
++-------------------------------------------------------+-----------------------------------------------+
+| rollout command is used for updating the replica set. | rolling-update command is used for updating   |
+| Even though replica set can be used independently,    | the replication controller. This replaces the |
+| it is best used along with deployments which          | specified replication controller with a new   |
+| makes them declarative.                               | replication controller by updating one pod    |
+|                                                       | at a time to use the new PodTemplate.         |
++-------------------------------------------------------+---------------------------------
+
+here is also a small difference in the syntax between Replica Controller:
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+    
+And the ReplicaSet which contains matchLabels field under the selector:
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels: #<-- This was added
+      tier: nginx
+
+
+
+
+
+
+
+
+
 
  
 Deployment
