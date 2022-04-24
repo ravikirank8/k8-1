@@ -456,6 +456,48 @@ kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
 
 ============================================================================================================
 
+DaemonSets
+===========
+DaemonSets are like replicasets, as it helps in to deploy multiple instances of pod. But it runs one copy of your pod on each node in your cluster.
+Creating a DaemonSet is similar to the ReplicaSet creation process.
+For DaemonSets, we start with apiVersion, kind as DaemonSets instead of ReplicaSet, metadata and spec
+
+DaemonSets - UseCases -> mointoring and loging,proxy,weavenet
+
+======================================================================
+
+Static Pod:
+
+How do you provide a pod definition file to the kubelet without a kube-apiserver?
+
+The designated directory can be any directory on the host and the location of that directory is passed in to the kubelet as an option
+while running the service.
+created by kubelet
+deploy controlplane components as static pods
+
+
+deamonsets
+deployed by kube-apiservers
+deploy monitoring agents and nodes.
+static and daomonsets are ignore by scheduler
+
+The option is named as --pod-manifest-path. in kubelete.service
+
+antherway
+
+Instead of specifying the option directly in the kubelet.service file, you could provide a path to another config file using the config option, 
+and define the directory path as staticPodPath in the file.
+
+staticPodPath = /etc/kubernetes/manifets
+docker ps
+kubectl get pods -n kube-system
+
+
+
+
+
+=================================================================
+
 Multicontainers
 
 // create the pod
