@@ -449,7 +449,9 @@ By default, K8s assume that a pod or container within a pod requires 0.5 CPU and
 .  Limits define the max amount of resources that the container can consume.
 
 
+kubectl run nginx --image=nginx --restart=Never --requests='cpu=100m,memory=256Mi' --limits='cpu=200m,memory=512Mi'
 
+kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
 
 
 ============================================================================================================
