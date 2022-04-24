@@ -356,8 +356,85 @@ kubectl scale --replicas=7 rs nginx
 
 Scheduler
 =======
+
+Manual Scheduling :  nodeName: node02
  
 kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod1.yaml
+
+====
+
+Taints and Tolearations:
+
+taints and toleration are like what pods to be schudled on nodes
+
+taints are set on nodes and tolerations are set on pods
+
+Taints and Tolerations are used to set restrictions on what pods can be scheduled on a node.
+Only pods which are tolerant to the particular taint on a node will get scheduled on that node.
+
+
+taint: is the command to apply taints in the nodes
+nodes: are set of worker nodes
+nodename: is the name of the specific worker node, on which taint has to be applied, it has a key-value pair
+key-value pair: it is used to specify which application type in the pod will this node may be attached
+taint-effect: This is used to define how the pod will be treated if they are not tolerant of the taint.
+
+The effects are as below;
+
+    NoSchedule — Pods will not be schedule on the nodes
+    PreferNoSchedule — The system will try to avoid placing a pod on the node, but it’s not guaranteed
+    NoExecute — New pods will not be scheduled on the node and existing pods on the node if any will be evicted if they do not tolerate the taint
+    
+    kubectl taint nodes node1 app=blue:NoSchedule
+    
+ Tolerations are added to pods by adding a tolerations section in pod definition.
+ 
+ Node Selectors
+ ================
+ 
+ nodeSelector:
+  size: Large
+  
+  $ kubectl label nodes node-1 size=Large
+ 
+ Node Affinity:
+ ===============
+ 
+ The primary feature of Node Affinity is to ensure that the pods are hosted on particular nodes.
+
+ With Node Selectors we cannot provide the advance expressions.
+ 
+ affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: size
+            operator: In
+            values: 
+            - Large
+            - Medium
+            
+            
+Available
+
+    requiredDuringSchedulingIgnoredDuringExecution
+    preferredDuringSchedulingIgnoredDuringExecution
+
+Planned
+
+    requiredDuringSchedulingRequiredDuringExecution
+    preferredDuringSchedulingRequiredDuringExecution
+    
+  =====================================================================================================
+  Resource Limits:
+  ================
+  
+
+    
+
+
+============================================================================================================
 
 Multicontainers
 
