@@ -219,6 +219,14 @@ kubectl run nginx --image=nginx --restart=Never --port=80
 
 * Replication Controller and Replica Set 
 
+A simple case is to create one ReplicationController object to reliably run one instance of a Pod indefinitely.
+A more complex use case is to run several identical replicas of a replicated service, such as web servers
+
+If there are too many pods, the ReplicationController terminates the extra pods. If there are too few, the ReplicationController starts more pods
+=====================
+
+
+
 Replica Set is the next generation of Replication Controller. Replication controller is kinda imperative, but replica sets try to be as declarative as possible.
 
 1.The main difference between a Replica Set and a Replication Controller right now is the selector support.
@@ -265,16 +273,12 @@ spec:
   selector:
     matchLabels: #<-- This was added
       tier: nginx
-
-
-
-
-
-
-
-
-
-
+      
+ ==============================================================
+ 
+Deployment
+A ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+However, Deployment is a higher-level concept that manages ReplicaSets and provides declarative updates to Pods along with a lot of other useful features.
  
 Deployment
 ==============
@@ -298,6 +302,30 @@ kubectl edit rs nginx
 kubectl get rc
 kubectl get deploy
 kubectl get deploy nginx -o yaml
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
 ============================================================================================================
 Rollback:
 =========
