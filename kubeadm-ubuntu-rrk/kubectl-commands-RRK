@@ -2,7 +2,15 @@ Author : Ravi Ravada
 
 =============================================================================================================================================
 
+explain manifest file of k8s (AKSM)
+
 POD:
+
+3)Pod encapsulation  an application container, storage , network.
+4)By default POD use untlimited resources(CPU and memory)
+1)Kubernetes  manages the pods rather container directly
+2)Pods represent a running process in your cluster.
+
 
  kubectl run custompod --image=vadisala/rvadisala_docker_repo:nginx-custom --restart=Never --dry-run=client -o yaml
 
@@ -18,6 +26,37 @@ kubectl exec busybox -c busybox -- ls
 ==================================================================
 Namespaces
 ============
+
+Namespaces are Kubernetes objects which partition a single Kubernetes cluster into multiple virtual clusters.
+
+By default, a Kubernetes cluster is created with the following three namespaces:
+
+Kubernetes objects which partition a single Kubernetes cluster into multiple virtual clusters.
+
+default: By default all the resource created in Kubernetes cluster are created in the default namespace. 
+By default the default namespace can allow applications to run with unbounded CPU and memory requests/limits 
+(Until someone set resource quota for the default namespace).
+kube-public: Namespace for resources that are publicly readable by all users. This namespace is generally reserved for cluster usage.
+kube-system: It is the Namespace for objects created by Kubernetes systems/control plane.
+kube-node-lease This namespace holds Lease objects associated with each node.
+Node leases allow the kubelet to send heartbeats so that the control plane can detect node failure. 
+ 
+1)Namespaces is like partitioning the k8 cluster 
+
+2)Like we have difference environments like dev, prod.
+
+3)They can be helpful when different teams or projects share a Kubernetes cluster
+
+List all K8s API supported Objects and Versions
+kubectl api-resources
+kubectl api-versions
+
+Man pages for objects
+kubectl explain <object>.<option>
+kubectl explain pod
+kubectl explain pod.apiVersion
+kubectl explain pod.spec
+
 
 kubectl create namespace mynamespace
 
