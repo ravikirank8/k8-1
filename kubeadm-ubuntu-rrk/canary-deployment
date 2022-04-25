@@ -1,1 +1,7 @@
 
+Istio is like every microservices will have an proxy and it talks with proxy.taking directly will have security issue
+it will collect the metrics
+
+in rolling update v1 and v2 should similar or it will not work
+
+
