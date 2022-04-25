@@ -503,9 +503,115 @@ $ wget https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/lin
 https://github.com/kodekloudhub/certified-kubernetes-administrator-course/blob/master/docs/03-Scheduling/18-Multiple-Schedulers.md
 
   schedulerName: my-custom-scheduler
+==============================================================
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+ containers:
+ - name: ubuntu-sleeper
+   image: ubuntu-sleeper
+   command: ["sleep2.0"] == TO  entrypoint dockerI
+   args: ["10"]         == TO CMD in docker
 
 
 =================================================================
+ configMap
+  ==========
+  
+  
+  There are 2 phases involved in configuring ConfigMaps.
+
+    First, create the configMaps
+    Second, Inject then into the pod.
+
+There are 2 ways of creating a configmap.
+
+    The Imperative way
+    
+ $kubectl create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_MODE=prod
+$ kubectl create configmap app-config --from-file=app_config.properties (Another way)
+
+
+  
+  kubectl create cm morevar --from-literal=mysql=passwodofme --from-literal=var3=vzg --dry-run=client -o yaml
+
+  kubectl create cm mycm --from-file=variables --dry-run=client -o yaml > a.yml
+  
+    containers:
+  - image: nginx
+    name: pod1
+    envFrom:
+      - configMapRef:
+          name: mycm
+
+  ================================================================================================
+  
+ kubectl create secret generic mysecret --from-file=ssh-privatekey=/root/.ssh/id_rsa --from-literal=passphrase=password
+ 
+ kubectl create secret generic mysecret --from-literal=username=ravikiran --from-literal=passphrase=password --dry-run=client -o yaml > sec.yaml   
+
+  echo  'cmF2aQ==' | base64 -d
+  echo -n 'ravi' | base64
+  
+  
+   - image: nginx
+    name: pod2
+    envFrom:
+      - secretRef:
+          name: mysecret
+   
+   =============================
+  envFrom:
+      - secretRef:
+          name: mysecret
+  
+  envFrom:
+      - configMapRef:
+          name: filename
+          
+      ============================
+      
+Config maps
+
+
+
+kubectl create cm mycm --from-file=a.txt
+kubectl get cm
+kubectl describe cm mycm
+
+kubectl create cm mycm --from-file=a.txt --dry-run=client -o yaml
+
+We see this using by creating it using test pod
+
+kubectl create cm variables --from-file=variables
+
+ kubectl run busybox --image=busybox  --env=team=noc  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod2.yaml
+
+kubectl exec -it busybox -- env
+
+kubectl get cm -o yaml
+
+    
+kubectl create secret generic sec --from-file=ssh-private=/root/.ssh/known_hosts --from-literal=passphrase=ravikiran
+
+ kubectl create secret generic db-user-pass  --from-file=a.txt  --from-file=pass.txt --dry-run=client -o yaml
+
+kubectl create secret generic sec --from-file=usercred=ravikiran --from-literal=passphrase=ravikiran300 --dry-run=client -o yaml
+
+
+
+
+
+
+
+
+
+
+
+==================
 
 Multicontainers
 
