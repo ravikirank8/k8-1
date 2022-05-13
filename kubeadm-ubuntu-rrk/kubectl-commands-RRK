@@ -24,6 +24,15 @@ kubectl exec busybox -c busybox -- ls
 
  kubectl run rvada --image=vadisala/rvadisala_docker_repo:nginx-custom
  
+ Flannel:
+ does not support Network Policies
+
+Calico:
+supports Network Policies
+
+Calico, Flannel, Weave and Cilium medium all support network polices
+
+ 
  
 
 Mutlicontainer
