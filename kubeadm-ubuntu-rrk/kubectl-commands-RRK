@@ -1158,6 +1158,48 @@ kubectl create cronjob busybox --image=busybox --schedule="*/1 * * * *"   -o yam
 
 serives
 ======
+
+.  A Service enables network access to a set of Pods in Kubernetes.
+.  Kubernetes gives Pods their own IP addresses   and can load-balance across them
+
+
+. ClusterIP is the default and most common service type.
+ Kubernetes will assign a cluster-internal IP address to ClusterIP service.
+  This  makes the  service only reachable within the cluster.
+ You cannot make requests to service (pods) from outside the cluster. 
+ Inter service communication within the cluster
+
+
+=========================
+
+NodePort:
+
+. This service visible outside the Kubernetes cluster by the node’s IP address and the port number declared . 
+  The service also has  to be of type NodePort (if this field isn’t specified, Kubernetes will allocate a node port automatically). 
+. Node port must be in the range of 30000–32767. Manually allocating a port to the service is optional
+
+========================================
+
+LoadBalancer:
+
+ Every time you want to expose a service to the outside world, you have  to create a new        LoadBalancer  and get an IP address.
+ It exposes the service externally using a cloud providers load Balancer
+ Each cloud provider (AWS, Azure, GCP,) has its own native load balancer implementation. The cloud provider will create a load balancer, which then automatically routes requests to your Kubernetes Service.
+
+
+
+Readiness & Liveness in PODS:
+
+. This is used for testing. Before the POD available  readinees  probe will check whether your defined service is ready or not . if running Pod gets available.
+
+. Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
+
+. The kubelet uses readiness probes to know when a container is ready to start 
+
+. The kubelet  uses liveness probes to know when to restart a container.
+
+
+
 #https://github.com/kodekloudhub/certified-kubernetes-administrator-course/blob/master/docs/02-Core-Concepts/19-Services.md
 LoadBalacer
 #https://github.com/dennyzhang/cheatsheet-kubernetes-A4
