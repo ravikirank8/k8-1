@@ -1250,8 +1250,8 @@ A service account provides an identity for processes that run in a Pod.
 Processes in containers inside pods can also contact the apiserver. When they do, they are authenticated as a particular Service Account (for example, default)
 
 
-     
-     
+stateful set and headless service in k8s
+
 
     
 
