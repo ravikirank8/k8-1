@@ -1243,7 +1243,11 @@ autoscale
 kubectl autoscale deploy/mydemo --min=5 --max=10 --cpu-percent=80 --dry-run=client -o yaml
 
 kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run=client -o yaml
+===========================================================================================
 
+A service account provides an identity for processes that run in a Pod.
+
+Processes in containers inside pods can also contact the apiserver. When they do, they are authenticated as a particular Service Account (for example, default)
 
 
      
