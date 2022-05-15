@@ -239,12 +239,8 @@ CORRECT: ``yaml
 =============================
 ==============================
 
-Network troubleshooting 
-
-
-Udemy
-Certified Kubernetes Administrator (CKA) with Practice Tests
 Network Troubleshooting
+
 Network Plugin in kubernetes
 
 --------------------
@@ -269,7 +265,7 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 You can find this in following documentation :
 
-                  https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+              https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
 
 
 2. Flannel :
@@ -277,7 +273,7 @@ You can find this in following documentation :
 
    To install,
 
-  kubectl apply -f               https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
+  kubectl apply -f   https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
 
    
 
@@ -455,145 +451,3 @@ Debug Service issues:
 DNS Troubleshooting:
 
                      https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/
-About this course
-
-Prepare for the Certified Kubernetes Administrators Certification with live practice tests right in your browser - CKA
-By the numbers
-Skill level: All Levels
-Students: 172420
-Languages: English
-Captions: Yes
-Lectures: 260
-Video: 20 total hours
-Certificates
-
-Get Udemy certificate by completing entire course
-Features
-Available on iOS and Android
-Description
-
-*** Updated for latest CKA (2022) 1.22 version of Exam ***
-
-Kubernetes is one of the highest trending technology in Cloud Computing as of today. Kubernetes had the fastest growth in job searches, over 173% from a year before as reported recently by a survey conducted by Indeed.
-
-Learn, practice, and get certified on Kubernetes with hands-on labs right in your browser.
-
-"I have compared this to other courses at Udemy and Linux Academy. All have the strengths and gaps, so far this is a winner!" -  Thomas Trauss, Student
-
-Learning Kubernetes is essential for any DevOps professional. DevOps engineers are always in demand. Currently, the average Silicon Valley salary for a DevOps engineer is 20% higher than what a software engineer makes. DevOps engineers make an average of $140,000 to $200,000 annually. And One of the most in-demand skills is Kubernetes Administration.
-
-Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications. It was originally designed by Google and is now maintained by the Cloud Native Computing Foundation.
-
-                                                                                                    Simplify Complex Technology
-
-Kubernetes is at the cutting-edge of application deployment. To elevate your DevOps career, learn how to effectively deploy applications on Kubernetes.
-
-This course helps you gain the knowledge required to design and deploy cloud-native applications on a Kubernetes cluster.  A series of well-designed lectures with animation and illustrations help you understand complex concepts easily.
-
-
-                                                                                                     Practice! Practice! Practice!
-
-Lectures alone won’t help you clear the certification. The Kubernetes Certification is a practical hands-on exam. You need hands-on experience, you need to get fast and you need practice. That is what our integrated hands-on lab experience gives you. Our coding quizzes can be accessed right in your browser without having to setup any lab environment yourself. We validate your work and give you feedback instantly. Preview few lab exercises for Free!!
-
-After you have completed the lectures and coding exercises you will have the opportunity to complete a series of assignments that put your new skills to the test. You will be given a challenge to solve using the Kubernetes skills you have learned.
-
-This will give you real-world experience and the chance to work with other students in the community. You will develop a Kubernetes deployment and get feedback for your work.
-
-
-                                                                                                      Join Our Community!
-
-Once you enroll in the course, you will get access to our community of teachers and learners on Slack where we discuss important topics, tips, and tricks to pass the exam. This is a great place for you to clear your doubts and get answers to your questions instantly.
-
-
-This course is the best way to get Certified in Kubernetes for an Absolute Beginner.
-
-Don’t waste any more time wondering what course is best for you. You’ve already found it. Get started right away!
-
-
-"Straight to the point covers the necessary to take the exam with some additional practice. Very good course and a very good teacher. Top-notch! Update: I passed the exam using this course!" - Christopher Williamson, Student, Udemy
-
-Legal Notice:
-
-Kubernetes and the Kubernetes logo are trademarks or registered trademarks of The Linux Foundation. in the United States and/or other countries. The Linux Foundation and other parties may also have trademark rights in other terms used herein. This course is not certified, accredited, affiliated with, nor endorsed by Kubernetes or The Linux Foundation.
-
-
-Course Update History
-
-    Oct 20, 2021 – Lab environment upgrade to v1.22
-
-    May 10, 2021 – Lab environment upgrade to v1.20
-
-    Aug 24, 2020 – New updates
-    Lab environment upgrade to v1.19
-    New lectures Storage Section, Troubleshooting Section, kubectl apply and Solution videos along with labs were added.
-    Updated Kubernetes Imperative Commands Lab.
-
-    Jun 16, 2020 – Lab environment upgrade to v1.18
-
-    Dec 3, 2019 – New labs added
-
-    Jul 5, 2019 – New Mock Exam to the Kubernetes Certification Courses added
-
-    Jun 7, 2019 – New lectures on Practice Imperative Commands, Multi Container PODs and Init Containers along with labs were added
-
-    May 21,2019 – Lab Updates and fixes
-
-What you’ll learn
-
-    How to Administer a Kubernetes Cluster
-    How to Design a Kubernetes Cluster
-    How to Build a Kubernetes Cluster from scratch - "The Hard Way"
-    How to Test a Kubernetes Cluster end-to-end
-    How to Troubleshoot a Kubernetes Cluster
-    How to Secure a Kubernetes Cluster
-    How to Configure Storage on a Kubernetes Cluster
-    How to Configure Network on a Kubernetes Cluster
-
-Are there any course requirements or prerequisites?
-
-    Basic understanding of Docker
-    YAML Language
-
-Who this course is for:
-
-    System Administrators
-    DevOps Professionals
-    Application Developers
-
-Instructor
-Mumshad Mannambeth
-
-Best Selling Instructor | Kubernetes Certified Partner
-
-Mumshad is an IT Solutions Architect and specializes in Cloud Native Computing, Automation and DevOps. He is the founder of KodeKloud - a hands-on learning platform and a Certified Kubernetes Training Partner. He is passionate about learning new technology and teaching. He believes the best way to learn is to learn by doing and in a fun way.  Mumshad has authored multiple courses on DevOps, Cloud and Automation technologies. His courses focus on providing students with an interactive and hands-on experience in learning new technology that makes learning really interesting.
-Instructor
-KodeKloud Training
-
-Hands-On Online Training Academy
-
-KodeKloud is an online training institution aimed at providing quality, hands-on training in DevOps and Automation Technologies such Docker, Kubernetes, OpenShift, Ansible, Chef, Puppet and many more. KodeKloud have authored multiple courses on DevOps, Cloud and Automation technologies and teach over 150,000 Students worldwide. Our courses focus on providing students with an interactive and hands-on experience in learning new technology that makes learning really interesting.
-Teach the world online
-Create an online video course, reach students across the globe, and earn money
-Top companies choose Udemy Business to build in-demand career skills.
-NasdaqVolkswagenBoxNetAppEventbrite
-
-    Udemy Business
-    Teach on Udemy
-    Get the app
-    About us
-    Contact us
-
-    Careers
-    Blog
-    Help and Support
-    Affiliate
-    Investors
-
-    Terms
-    Privacy policy
-    Sitemap
-    Accessibility statement
-
-© 2022 Udemy, Inc.
-
-
