@@ -1,0 +1,62 @@
+
+Let us explore the environment first. How many nodes do you see in the cluster?
+
+Including the controlplane and worker nodes.
+kubectl get nodes
+
+==
+
+Precheck
+
+how many application,pods,nodes
+
+kubectl get pods -o wide
+where actual pods  hosted
+
+==============================================
+
+we need to take node01 out for maintenance. Empty the node of all applications and mark it unschedulable.
+    Node node01 Unschedulable
+    Pods evicted from node01
+
+kubectl drain node01 --ignore-daemonsets
+here pods are placed from worker node to master node. it will not resechudle after uncrondon the node
+
+The maintenance tasks have been completed. Configure the node node01 to be schedulable again.
+
+Run the command
+
+kubectl uncordon node01
+
+
+======================================
+
+
+root@controlplane:~# kubectl describe node controlplane | grep -i  taint
+Taints:             <none>
+root@controlplane:~# 
+
+Since there are no taints on the controlplane node, all the pods were started on it when we ran the kubectl drain node01 command
+
+
+=============================================
+
+We need to carry out a maintenance activity on node01 again. Try draining the node again using the same command as before: 
+kubectl drain node01 --ignore-daemonsets
+not worked y?
+
+
+kubectl get pods -o wide and you will see that there is a single pod scheduled on node01 which is not part of a replicaset.
+The drain command will not work in this case. To forcefully drain the node we now have to use the --force flag.
+
+A forceful drain of the node will delete any pod that is not part of a replicaset.
+
+=====================================================
+
+hr-app is a critical app and we do not want it to be removed and we do not want to schedule any more pods on node01.
+Mark node01 as unschedulable so that no new pods are scheduled on this node.
+
+Make sure that hr-app is not affected.
+
+Do not drain node01, instead use the kubectl cordon node01 command.
+This will ensure that no new pods are scheduled on this node and the existing pods will not be affected by this operation.
