@@ -33,6 +33,28 @@ spec:
    from browser error : Environment Variables: DB_Host=mysql-service; DB_Database=Not Set; DB_User=sql-user; DB_Password=paswrd; 1045 (28000): Access denied for user 'sql-user'@'10.244.1.9' (using password: YES)
    
    According to the architecture diagram, the DB_User should be root but it is set to sql-user in the webapp-mysql deployment.
+   
+   
+   =================================================
+   
+   error : Environment Variables: DB_Host=mysql-service; DB_Database=Not Set; DB_User=root; DB_Password=paswrd; 2003: Can't connect to MySQL server on 'mysql-service:3306' (-2 Name does not resolve) 
+   
+   The service name used for the MySQL Pod is incorrect. According to the Architecture diagram, it should be mysql-service.
+To fix this, first delete the current service: kubectl -n alpha delete svc mysql
+Then create a new service with the following YAML file (or use imperative command):
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: alpha
+spec:
+    ports:
+    - port: 3306
+      targetPort: 3306
+    selector:
+      name: mysql
+
 Use the command kubectl -n delta edit deployments.apps webapp-mysql and update the environment variable as follows
 
 ====================================================
@@ -117,3 +139,25 @@ spec:
 
 Once the objects are recreated, and you should be able to access the application.
 
+==========================================================================================
+
+error :  Environment Variables: DB_Host=mysql-service; DB_Database=Not Set; DB_User=root; DB_Password=paswrd; 2003: Can't connect to MySQL server on 'mysql-service:3306' (111 Connection refused) 
+
+If you inspect the mysql-service in the beta namespace, you will notice that the targetPort used to create this service is incorrect.
+Compare this to the Architecture diagram and change it to 3306. Update the mysql-service as per the below YAML:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: beta
+spec:
+    ports:
+    - port: 3306
+      targetPort: 3306
+    selector:
+      name: mysql
+
+
+=====================================
+==========================
