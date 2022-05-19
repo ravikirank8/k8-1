@@ -1,12 +1,20 @@
 https://jhooq.com/categories/helm-chart/
 https://jhooq.com/helm-multiple-values-files/
 
+https://blog.devgenius.io/helm-helm-basics-a366daec5a81
+
 Let’s see what happens when the Helm chart is installed into Kubernetes.
 Helm reads the chart
 It reads the configuration values from the Values.yml and generates the manifest files with these values.
 Helm sends these generated manifests to the Kubernetes API server
 Kubernetes takes these manifest files and creates desired resources in the cluster.
 Helm allows focusing on the most important values
+
+Chart: Represents a Helm package. It contains all the resource definition files in YAML format needed to run an application, tool or service.
+Repository: It is a place to store and share Helm Charts, similar to Github repository where source code is stored, and Docker repository where images are stored.
+Release: It is an instance of Chart running in K8s. A Chart can usually be installed multiple times in the same K8s cluster. Every installation creates a new Release.
+
+
 
 
 helm search hub wordpress
