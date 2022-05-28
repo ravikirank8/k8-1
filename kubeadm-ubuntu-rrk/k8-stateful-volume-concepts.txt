@@ -1,1 +1,113 @@
 
+statefulset:
+===========
+
+https://www.magalix.com/blog/kubernetes-statefulsets-101-state-of-the-pods
+https://github.com/collabnix/kubelabs/blob/master/StatefulSets101/README.md#what-is-statefulset-and-how-is-it-different-from-deployment
+
+https://medium.com/stakater/k8s-deployments-vs-statefulsets-vs-daemonsets-60582f0c62d4
+https://medium.com/avmconsulting-blog/deploying-statefulsets-in-kubernetes-k8s-5924e701d327
+
+statefulset:
+==============
+
+zookeeper:
+master and follower method. Clusterip: None
+FIRST IT WILL WRITE DATA TO MASTER AND THEN IT WRITE DATA TO FOLLOWERS
+i have 3 zookeeper(pods)
+1 master 2 followers
+first it need to pass infromation or metadata will go master and then it should go to followers
+zk0,zk1,zk2 deploy
+1)when create deploy all pods get deployed all at once not a statefulset(kafKa)
+
+in mysql first master node deploy master info slave1 -> slave2 -> slave3
+
+1)IN DEPLOYMENT ALL PODS GETS DEPLOY ALL AT ONCE 
+in statefulset it deploy one by one 
+
+2)In deployment when pod create podname(hostname of pod) and ip is dynamic
+using stateful set we can create static hostname and ip
+
+3)headless service doesn't have ip 
+
+consider a senario
+master1 write to data
+here we create headless service 
+- > mysq0 to replicate  to msql1 and msql2. 
+when create normal service it writes to all at once
+so we need headless service
+it will point to dns server msq0 we dont give any ip address
+so it will write to msq0 to msql2 msql2 because it point to head but msqls read to from master
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: "nginx"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+          
+          
+ ==============================================
+ https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+ 
+ A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+
+Some typical uses of a DaemonSet are:
+
+running a cluster storage daemon on every node
+running a logs collection daemon on every node
+running a node monitoring daemon on every node
+
+==============================================
+
+A Pod can have multiple containers running apps within it, but it can also have one or more init containers, which are run before the app containers are started.
+
+Init containers are exactly like regular containers, except:
+
+Init containers always run to completion.
+Each init container must complete successfully before the next one starts.
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. However, if the Pod has a restartPolicy of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
+
+https://github.com/cloudnloud/Kubernetes_Admin_Training/tree/main/class11-initcontainers/node-redis
+
