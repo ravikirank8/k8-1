@@ -141,6 +141,9 @@ helm template :- It will do the validation and generate the YAML manifest but it
 helm templete chartname
 
 
+helm get --help
+
+
 
 
 
