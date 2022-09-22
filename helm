@@ -147,6 +147,8 @@ helm get --help
  
  helm install amaze-surf bitnami/apache
 
+helm uninstall <release-name>
+helm repo remove hashicorp
 
 
 
