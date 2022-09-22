@@ -143,6 +143,10 @@ helm templete chartname
 
 helm get --help
 
+ helm search hub consul | grep hashicorp
+ 
+ helm install amaze-surf bitnami/apache
+
 
 
 
