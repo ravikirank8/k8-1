@@ -2,6 +2,13 @@ Author : Ravi Ravada
 =============================================================================================================================================
 POD:
 
+kubectl  get po -o wide
+
+kubectl run redis --image=redis123 --dry-run=client -o yaml > redis-definition.yaml
+
+kubectl create -f redis-definition.yaml 
+
+
 kubectl run busybox --image=busybox  -o yaml --dry-run=client  -- /bin/sh -c   'echo hello world;sleep 3600' > pod1.yaml
 
 kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run=client  -- /bin/sh -c   'while true;do echo amobee;sleep  5;done' > pod1.yaml
