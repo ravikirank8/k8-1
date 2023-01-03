@@ -1252,6 +1252,176 @@ Processes in containers inside pods can also contact the apiserver. When they do
 
 stateful set and headless service in k8s
 
+======================================================================================================================
+
+. An emptyDir volume is first created when a Pod is assigned to a Node and exists as long  as that Pod is running on that node.
+. As the name says, it is initially empty. All Containers in the same Pod can read and write in the same emptyDir volume.
+. When a Pod is restarted or removed, the data in the emptyDir is lost forever.
+
+. A hostPath volume mounts a file or directory from the node's filesystem into the Pod. You can specify whether the file/directory must already exist on the node or should be created on pod startup. You can do it using a type attribute in the config file:
+
+
+Persistent Volume (PV) is an abstraction for the physical storage device that you have attached to the cluster. Pods can use this storage space using Persistent Volume Claims (PVC).
+PV is independent of the lifecycle of the Pods. It means that data represented by a PV continue to exist as the cluster changes and as Pods are deleted and recreated.
+ PV is not Namespaced, it is available to whole cluster. i.e PV is accessible to all namespaces.
+
+ Kubernetes looks for a PV that meets the criteria defined in the PVC, and if there is one, it matches claim to PV.
+ PVC must be in same namespace as the Pod. For each Pod, a PVC makes a storage consumption request within a namespace.
+
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+    
+  
+. StorageClass provisions PV dynamically, when PVC claims it.
+
+. StorageClass allows dynamically provision volumes for an incoming claim.
+
+. StorageClass is used in conjunction with PVC that allow Pods to dynamically request a new storage.
+
+. StorageClass use provisioners that are specific to the storage platform or cloud provider to give Kubernetes access to the physical storage.
+
+
+
+
+Volumes
+ ======
+ volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
+    
+    
+ image: busybox
+    name: busybox
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data
+      # this field is optional
+      type: DirectoryOrCreate
+      
+      
+     =============================================
+     
+     Readiness & Liveness in PODS:
+     
+     
+ . This is used for testing. Before the POD available  readinees  probe will check whether your defined service is ready or not . if running Pod gets available.
+
+. Liveneess is like after pod gets started and check the service defined is running or not. like it continous probe the service
+
+. The kubelet uses readiness probes to know when a container is ready to start 
+
+. The kubelet  uses liveness probes to know when to restart a container.
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+
+==================
+
+ . This is used for testing. Before the POD available  readinees  probe will check whether your defined service is ready or not . if running Pod gets available.
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: goproxy
+  labels:
+    app: goproxy
+spec:
+  containers:
+  - name: goproxy
+    image: k8s.gcr.io/goproxy:0.1
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+
+
+
+
+=======================================
+
+In Kubernetes, an init container is the one that starts and executes before other containers in the same Pod.
+It’s meant to perform initialization logic for the main application hosted on the Pod.
+For example, create the necessary user accounts, perform database migrations, create database schemas and so on
+
+Init containers are exactly like regular containers, except:
+
+Init containers always run to completion.
+Each init container must complete successfully before the next one starts.
+
+Init containers support all the fields and features of app containers, including resource limits, volumes, and security settings. However, the resource requests and limits for an init container are handled differently, as documented in Resources.
+
+Also, init containers do not support lifecycle, livenessProbe, readinessProbe, or startupProbe because they must run to completion before the Pod can be ready
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
+
 
     
 
