@@ -1,3 +1,24 @@
+OS Upgrades
+kubectl drain node-1
+kubectl cordon node-2
+kubectl uncordon node-1
+
+kubectl drain node01 --ignore-daemonsets --force
+
+if there is single pod with is not part of replicaset you can't drain that node
+kubectl get pods -o wide --force
+
+Run: kubectl get pods -o wide and you will see that there is a single pod scheduled on node01 which is not part of a replicaset.
+The drain command will not work in this case. To forcefully drain the node we now have to use the --force flag.
+
+if pods are not part of replicaset it will lost forever after you fire a command
+kubectl drain node01 --ignore-daemonsets --force
+
+
+=======================================================================================================
+
+
+
 1)
 This lab tests your skills on upgrading a kubernetes cluster. We have a production cluster with applications running on it. Let us explore the setup first.
 how many nodes are part of cluster
